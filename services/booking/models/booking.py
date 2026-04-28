@@ -1,6 +1,6 @@
 import random
 from datetime import date
-from typing import Optional
+
 from faker import Faker
 from pydantic import BaseModel, Field
 
@@ -14,8 +14,8 @@ class BookingDates(BaseModel):
 
 class BookingDatesforPatchRequest(BaseModel):
     """вспомогательная структура с не обязательными датами заселения-выселения для PATCH запроса"""
-    checkin: Optional[date] = None
-    checkout: Optional[date] = None
+    checkin: date | None = None
+    checkout: date | None = None
 
 
 class GetIdBooking(BaseModel):
@@ -66,9 +66,9 @@ class CreateBookingResponse(BaseModel):
 
 class UpdateBookingPatchResponse(BaseModel):
     """запрос на частичное обновление брони"""
-    firstname: Optional[str] = None
-    lastname: Optional[str] = None
-    totalprice: Optional[int] = None
-    depositpaid: Optional[bool] = None
-    bookingdates: Optional[BookingDatesforPatchRequest] = None
-    additionalneeds: Optional[str] = None
+    firstname: str | None = None
+    lastname: str | None = None
+    totalprice: int | None = None
+    depositpaid: bool | None = None
+    bookingdates: BookingDatesforPatchRequest | None = None
+    additionalneeds: str | None = None
