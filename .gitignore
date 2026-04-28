@@ -1,0 +1,5 @@
+allure-results
+.env
+__pycache__
+.idea
+sandbox.py
