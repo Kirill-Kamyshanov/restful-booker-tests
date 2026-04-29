@@ -1,11 +1,16 @@
 import logging
+import time
+import uuid
 from typing import Any
 import json as json_lib
+from requests import ConnectionError as RequestsConnectionError, RequestException
 
 import allure
-from requests import Response, Session
+from requests import Response, Session, Timeout
 from requests.adapters import HTTPAdapter
 from urllib3 import Retry
+
+from services.exceptions import ApiTimeoutError, ApiConnectionError, ApiError
 
 logger = logging.getLogger("api")
 
@@ -24,6 +29,63 @@ class BaseAPI:
         self.base_url = env_config.booking_url.rstrip("/")
         self.timeout = timeout
         self.session = self._build_session(env_config)
+
+
+    def _request(self, method: str, path: str, **kwargs: Any) -> Response:
+        """Выполняет HTTP-запрос: генерирует X-Request-Id, логирует, ловит транспортные ошибки.
+
+        В Allure-отчёт прикрепляются и REQUEST, и RESPONSE с тем же request_id, чтобы их легко сопоставить.
+        Бросает ApiTimeoutError / ApiConnectionError / ApiError при сбое транспорта.
+        """
+        url = path if path.startswith("http") else f"{self.base_url}/{path.lstrip('/')}"
+        request_id = uuid.uuid4().hex
+        kwargs.setdefault("timeout", self.timeout)
+        headers = dict(kwargs.pop("headers", {}) or {})
+        headers["X-Request-Id"] = request_id
+        kwargs["headers"] = headers
+
+        self._attach_request(
+            method=method,
+            url=url,
+            headers={**self.session.headers, **headers},
+            body=kwargs.get("json"),
+            params=kwargs.get("params"),
+            request_id=request_id,
+        )
+
+        start = time.monotonic()
+        try:
+            response = self.session.request(method, url, **kwargs)
+        except Timeout as exc:
+            elapsed = (time.monotonic() - start) * 1000
+            logger.error(
+                "api_request_timeout method=%s url=%s request_id=%s elapsed_ms=%.0f",
+                method,
+                url,
+                request_id,
+                elapsed,
+            )
+            raise ApiTimeoutError(f"{method} {url} timed out after {kwargs['timeout']}s") from exc
+        except RequestsConnectionError as exc:
+            logger.error("api_connection_error method=%s url=%s request_id=%s error=%s", method, url, request_id, exc)
+            raise ApiConnectionError(f"{method} {url} connection error: {exc}") from exc
+        except RequestException as exc:
+            logger.error("api_request_failed method=%s url=%s request_id=%s error=%s", method, url, request_id, exc)
+            raise ApiError(f"{method} {url} failed: {exc}") from exc
+
+        elapsed_ms = (time.monotonic() - start) * 1000
+        logger.info(
+            "api_request method=%s url=%s status=%s request_id=%s elapsed_ms=%.0f",
+            method,
+            url,
+            response.status_code,
+            request_id,
+            elapsed_ms,
+        )
+        self._attach_response(response, elapsed_ms, request_id)
+        return response
+
+
 
 
 
