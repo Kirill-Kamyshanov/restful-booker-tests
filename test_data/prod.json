@@ -1,0 +1,55 @@
+{
+    "auth": {
+        "auth_valid": {"username": "admin", "password": "password123"},
+        "auth_invalid": {"username": "admin", "password": "wrong_password"}
+    },
+    "booking": {
+        "valid_id": 2,
+        "invalid_id": 9999,
+        "valid_patch": {"firstname": "James437", "lastname": "Brown"},
+        "invalid_patch": {"firstname": 78,  "lastname": "Brown"},
+        "valid_post": {
+            "firstname": "Jim32",
+            "lastname": "Brow32n",
+            "totalprice": 111,
+            "depositpaid": false,
+            "bookingdates": {
+                "checkin": "2026-01-01",
+                "checkout": "2028-01-01"
+            },
+            "additionalneeds": "Breakfast"
+        },
+        "invalid_post": {
+            "firstname": 111,
+            "lastname": "Brow32n",
+            "totalprice": 111,
+            "depositpaid": false,
+            "bookingdates": {
+                "checkin": "2026-01-01",
+                "checkout": "2028-01-01"
+            },
+            "additionalneeds": "Breakfast"
+        },
+        "valid_put": {
+            "firstname": "Newname",
+            "lastname": "Newsurname",
+            "totalprice": 222,
+            "depositpaid": true,
+            "bookingdates": {
+                "checkin": "2026-02-02",
+                "checkout": "2028-02-02"
+            },
+            "additionalneeds": "Lunch"
+        },
+        "invalid_put": {
+            "firstname": "Newname",
+            "lastname": "Newsurname",
+            "totalprice": 222,
+            "depositpaid": true,
+            "bookingdates": {
+                "checkout": "2028-02-02"
+            },
+            "additionalneeds": "Lunch"
+        }
+    }
+}
