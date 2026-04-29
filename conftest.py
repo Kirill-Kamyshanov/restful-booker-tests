@@ -1,6 +1,6 @@
 import pytest
 
-from config.environments import Environment
+from config.environments import Environment, EnvironmentConfig, load_environment
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
@@ -12,8 +12,20 @@ def pytest_addoption(parser: pytest.Parser) -> None:
         help="Окружение для запуска тестов (dev/prod)"
     )
 
+
 @pytest.fixture(scope="session")
-def env() -> Environment:
+def env(request: pytest.FixtureRequest) -> Environment:
     """Возвращает выбранное окружение из CLI-опции --env."""
     env_name = request.config.getoption("--env")
-    print(Environment(env_name.lower()))
+    try:
+        return Environment(env_name.lower())
+    except ValueError as exc:
+        raise ValueError(f"Некорректное окружение: {env_name}. Используйте одно из: dev/stage") from exc
+
+
+@pytest.fixture(scope="session")
+def env_config(env: Environment) -> EnvironmentConfig:
+    """Загружает конфиг текущего окружения (URL + секреты)."""
+    config = load_environment(env)
+    print(f"\nОкружение: {env}\n{config}\n")
+    return config
