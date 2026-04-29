@@ -3,7 +3,9 @@ from typing import Any
 import json as json_lib
 
 import allure
-from requests import Response
+from requests import Response, Session
+from requests.adapters import HTTPAdapter
+from urllib3 import Retry
 
 logger = logging.getLogger("api")
 
@@ -16,6 +18,38 @@ RETRY_STATUSES = (500, 502, 503, 504)
 
 class BaseAPI:
     """Базовый HTTP-клиент: единый _request с retry, structured-logging и request_id"""
+
+    def __init__(self, env_config, timeout: int = DEFAULT_TIMEOUT) -> None:
+        """Инициализирует клиент с базовым URL, таймаутом и преднастроенной requests.Session."""
+        self.base_url = env_config.booking_url.rstrip("/")
+        self.timeout = timeout
+        self.session = self._build_session(env_config)
+
+
+
+
+    @staticmethod
+    def _build_session(env_config) -> Session:
+        """Создаёт requests.Session с retry-политикой для 5xx, пулом соединений и дефолтными заголовками."""
+        session = Session()
+        retry = Retry(
+            total=DEFAULT_RETRIES,
+            backoff_factor=DEFAULT_BACKOFF,
+            status_forcelist=RETRY_STATUSES,
+            allowed_methods=("HEAD", "GET", "OPTIONS", "PUT", "DELETE"),
+            raise_on_status=False,
+            respect_retry_after_header=True,
+        )
+        adapter = HTTPAdapter(max_retries=retry, pool_connections=20, pool_maxsize=20)
+        session.mount("http://", adapter)
+        session.mount("https://", adapter)
+        session.headers.update({"Content-Type": "application/json", "Accept": "application/json"})
+        if getattr(env_config, "authorization", ""):
+            session.headers["authorization"] = env_config.authorization
+        return session
+
+
+
 
     @staticmethod
     def _attach_request(
