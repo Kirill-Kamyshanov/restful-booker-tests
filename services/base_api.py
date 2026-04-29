@@ -42,6 +42,17 @@ class BaseAPI:
 
 
 
+    @staticmethod
+    def _attach_response(response: Response, elapsed_ms: float, request_id: str) -> None:
+        """Прикрепляет к Allure тело ответа c request_id, статусом и длительностью; не-JSON отдаёт как текст."""
+        try:
+            payload = json_lib.dumps(response.json(), indent=2, ensure_ascii=False, default=str)
+            atype = allure.attachment_type.JSON
+        except (ValueError, json_lib.JSONDecodeError):
+            payload = response.text or f"<empty body, status {response.status_code}>"
+            atype = allure.attachment_type.TEXT
+        body = f"# request_id={request_id} status={response.status_code} elapsed_ms={elapsed_ms:.0f}\n{payload}"
+        allure.attach(body=body, name=f"RESPONSE {response.status_code}", attachment_type=atype)
 
 
 
@@ -50,19 +61,3 @@ class BaseAPI:
 
 
 
-
-
-
-
-
-    # @staticmethod
-    # def _attach_response(response: Response, elapsed_ms: float, request_id: str) -> None:
-    #     """Прикрепляет к Allure тело ответа c request_id, статусом и длительностью; не-JSON отдаёт как текст."""
-    #     try:
-    #         payload = json_lib.dumps(response.json(), indent=2, ensure_ascii=False)
-    #         atype = allure.attachment_type.JSON
-    #     except (ValueError, json_lib.JSONDecodeError):
-    #         payload = response.text or f"<empty body, status {response.status_code}>"
-    #         atype = allure.attachment_type.TEXT
-    #     body = f"# request_id={request_id} status={response.status_code} elapsed_ms={elapsed_ms:.0f}\n{payload}"
-    #     allure.attach(body=body, name=f"RESPONSE {response.status_code}", attachment_type=atype)
