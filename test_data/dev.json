@@ -1,7 +1,10 @@
 {
     "auth": {
         "auth_valid": {"username": "admin", "password": "password123"},
-        "auth_invalid": {"username": "admin", "password": "wrong_password"}
+        "auth_invalid": {"username": "admin", "password": "wrong_password"},
+        "auth_empty": {},
+        "auth_without_name": {"password": "wrong_password"},
+        "auth_without_password": {"username": "admin"}
     },
     "booking": {
         "valid_id": 2,
