@@ -6,6 +6,7 @@ from utils.assertions import assert_status_code
 def assert_auth(response: Response, validated: AuthResponse | AuthErrorResponse) -> None:
     """Проверка авторизации"""
     assert_status_code(response, 200)
+    # print(validated)
 
     if isinstance(validated, AuthErrorResponse):
         expected_error_body = {"reason": "Bad credentials"}

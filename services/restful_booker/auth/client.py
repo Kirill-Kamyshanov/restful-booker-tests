@@ -7,10 +7,10 @@ from services.restful_booker.auth.models.auth import AuthResponse, AuthErrorResp
 class AuthClient(BaseAPI):
     """Фасад над ресурсом /auth"""
 
-    def login(self, request_body: str, positive: bool = True) -> tuple[Response, AuthResponse | AuthErrorResponse]:
+    def login(self, request_body: str, is_positive: bool = True) -> tuple[Response, AuthResponse | AuthErrorResponse]:
         """Отправка запроса на авторизацию"""
         response = self.post("/auth", json=request_body)
-        if positive:
+        if is_positive:
             return response, AuthResponse(**response.json())
         else:
             return response, AuthErrorResponse(**response.json())
