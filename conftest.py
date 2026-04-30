@@ -1,6 +1,5 @@
 import json
 from pathlib import Path
-from faker import Faker
 
 import pytest
 
@@ -49,9 +48,3 @@ def api(env_config: EnvironmentConfig) -> RestfulBooker:
     """Главный фасад над сервисом reqres.in: api.ping / api.booking / api.auth."""
     return RestfulBooker(env_config)
 
-
-@pytest.fixture
-def randomize_dynamic_fields(dynamic_fields: list, test_data: dict) -> dict:
-    fake = Faker()
-
-    return ...
