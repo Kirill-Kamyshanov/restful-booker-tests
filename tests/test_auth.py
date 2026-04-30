@@ -1,6 +1,7 @@
 import pytest
 from faker import Faker
 from services.restful_booker.auth.assertions import assert_auth
+from services.restful_booker.auth.models.auth import AuthRequest
 
 
 class TestAuth:
@@ -23,7 +24,7 @@ class TestAuth:
             #     if field in fields.keys():
             #         test_data["auth"][auth_case][field] = fields[field]
         else:
-            data = test_data["auth"][auth_case]
+            data = AuthRequest(**test_data["auth"][auth_case]).model_dump()
         response, validated = api.auth.login(data,is_positive=is_positive)
         # response, validated = api.auth.login(test_data["auth"][auth_case],is_positive=is_positive)
         assert_auth(response, validated)
