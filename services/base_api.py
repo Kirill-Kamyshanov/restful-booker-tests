@@ -153,7 +153,25 @@ class BaseAPI:
 
 
 
+    def get(self, path: str, **kwargs) -> Response:
+        """Шорткат над _request для GET-запроса."""
+        return self._request("GET", path, **kwargs)
 
+    def post(self, path: str, **kwargs) -> Response:
+        """Шорткат над _request для POST-запроса."""
+        return self._request("POST", path, **kwargs)
+
+    def put(self, path: str, **kwargs) -> Response:
+        """Шорткат над _request для PUT-запроса."""
+        return self._request("PUT", path, **kwargs)
+
+    def patch(self, path: str, **kwargs) -> Response:
+        """Шорткат над _request для PATCH-запроса."""
+        return self._request("PATCH", path, **kwargs)
+
+    def delete(self, path: str, **kwargs) -> Response:
+        """Шорткат над _request для DELETE-запроса."""
+        return self._request("DELETE", path, **kwargs)
 
 
 
