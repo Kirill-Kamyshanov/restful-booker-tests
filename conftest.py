@@ -1,5 +1,8 @@
 import json
+import warnings
+from collections.abc import Generator
 from pathlib import Path
+from typing import Callable
 
 import pytest
 
@@ -48,3 +51,21 @@ def api(env_config: EnvironmentConfig) -> RestfulBooker:
     """Главный фасад над сервисом reqres.in: api.ping / api.booking / api.auth."""
     return RestfulBooker(env_config)
 
+@pytest.fixture
+def cleanup() -> Generator[list[Callable[[], None]], None, None]:
+    """Список действий очистки, которые выполнятся после теста (в обратном порядке).
+
+    Сразу после создания сущности тест добавляет действие удаления:
+        cleanup.append(lambda: api.users.remove(user_id))
+    После теста все действия выполняются с конца списка. Ошибка одного не прерывает остальные.
+    """
+    tasks : list[Callable[[], None]] = []
+    yield tasks
+    errors : list[Exception] = []
+    for task in reversed(tasks):
+        try:
+            task()
+        except Exception as exc:
+            errors.append(exc)
+    if errors:
+        warnings.warn(f"Cleanup errors: {errors}", stacklevel=2)

@@ -1,4 +1,4 @@
-from services.restful_booker.booking.assertions import assert_creation
+from services.restful_booker.booking.assertions import assert_creation, assert_deleting
 from services.restful_booker.booking.models.booking import BookingDataRequest
 from utils.assertions import assert_status_code
 import pytest
@@ -9,13 +9,15 @@ import pytest
 class TestBooking:
 
 
-    def test_create_booking_successful(self, api):
+    def test_create_booking_successful(self, api, cleanup):
         """Создание бронирования с валидными входными данными"""
         request_data = BookingDataRequest().model_dump(mode='json')
         print(type(request_data))
         print(request_data)
 
         response, validated = api.booking.create(request_data)
+        cleanup.append(lambda: api.booking.remove(validated.bookingid))
+        print(f"Юзер удалён {validated.bookingid}")
         print(response)
         print(type(validated))
         # print(validated.model_dump(mode='json'))
@@ -32,7 +34,7 @@ class TestBooking:
 
 
 
-    # Тут поведение системы специфическое. Ждал код 400, получил 200 с некорректными датами. Он они были обработаны
+    # Тут поведение системы специфическое. Ждал код 400, получил 200 с некорректными датами. Но они были обработаны
     # Оставил тест как есть. В реальном проекте уточнил бы требования
     def test_create_booking_with_invalid_dates(self, api, test_data):
         """Создание бронирования с некорректными датами"""
@@ -45,8 +47,15 @@ class TestBooking:
 
 
     # тут баг - успешное создание без поля additionalneeds (обязательное)
-    @pytest.mark.parametrize("deleting_field",[
-        "firstname", "lastname", "totalprice", "depositpaid", "bookingdates", "checkin", "checkout", "additionalneeds"
+    @pytest.mark.parametrize("deleting_field", [
+        "firstname",
+        "lastname",
+        "totalprice",
+        "depositpaid",
+        "bookingdates",
+        "checkin",
+        "checkout",
+        "additionalneeds"
     ])
     def test_create_booking_without_necessary_fields(self, api, deleting_field):
         """Создание бронирования без обязательных полей в запросе"""
@@ -61,6 +70,45 @@ class TestBooking:
 
         response, validated = api.booking.create(request_data, validate=False)
         assert_status_code(response, 500)
+
+
+
+
+    def test_delete_booking_successful(self, api):
+        """Проверяет успешное удаление бронирования"""
+        # создание
+        request_data = BookingDataRequest().model_dump(mode='json')
+        _, validated = api.booking.create(request_data)
+
+        # удаление
+        response, text = api.booking.remove(validated.bookingid)
+        # проверка удаления
+        assert_deleting(response, 201, "Created")
+        # print(text)
+        # print(response)
+
+
+
+    @pytest.mark.parametrize("token", [None, "battletoads2"])
+    def test_delete_booking_with_invalid_creds(self, api, token, cleanup):
+        """Проверяет получение ошибки при попытке удалить бронирование
+        без токена авторизации / с невалидным токеном"""
+        # создание
+        request_data = BookingDataRequest().model_dump(mode='json')
+        _, validated = api.booking.create(request_data)
+        cleanup.append(lambda: api.booking.remove(validated.bookingid))
+        # удаление
+        response, text = api.booking.remove(validated.bookingid, headers={"Authorization": token})
+        assert_deleting(response, 403, "Forbidden")
+
+
+
+    def test_delete_unexisted_booking(self, api, cleanup):
+        """Проверка удаления несуществующего бронирования"""
+        unexisted_id = 9999999
+        response, text = api.booking.remove(unexisted_id)
+        assert_deleting(response, 405, "Method Not Allowed")
+
 
 
 
@@ -81,12 +129,6 @@ class TestBooking:
 # Обновление бронирования без токена авторизации
 # Обновление бронирования с неверным токеном
 # Обновление несуществующего бронирования
-
-# Удаление бронирования:
-# Успешное удаление бронирования
-# Попытка удаления без токена авторизации
-# Удаление с неверным токеном авторизации
-# Удаление несуществующего бронирования
 
 
 

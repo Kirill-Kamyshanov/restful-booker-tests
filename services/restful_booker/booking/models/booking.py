@@ -22,8 +22,8 @@ def _random_price():
 
 class BookingDates(BaseModel):
     """вспомогательная структура с датами заселения-выселения"""
-    checkin: date = Field(default_factory=lambda: date.today() + timedelta(days=random.randrange(-30, 30)))
-    checkout: date = Field(default_factory=lambda: date.today() + timedelta(days=random.randrange(31, 100)))
+    checkin: str = Field(default_factory=lambda:  (date.today() + timedelta(days=random.randrange(-30, 30))).isoformat())
+    checkout: str = Field(default_factory=lambda: (date.today() + timedelta(days=random.randrange(31, 100))).isoformat())
 
 
 class BookingDatesforPatchRequest(BaseModel):

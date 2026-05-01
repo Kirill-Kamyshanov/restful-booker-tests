@@ -107,7 +107,7 @@ class BaseAPI:
         session.mount("https://", adapter)
         session.headers.update({"Content-Type": "application/json", "Accept": "application/json"})
         if getattr(env_config, "authorization", ""):
-            session.headers["authorization"] = env_config.authorization
+            session.headers["Authorization"] = env_config.authorization
         return session
 
 

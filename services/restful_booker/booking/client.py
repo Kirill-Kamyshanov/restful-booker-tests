@@ -1,3 +1,4 @@
+
 from requests import Response
 
 from services.base_api import BaseAPI
@@ -10,9 +11,14 @@ class BookingClient(BaseAPI):
     def create(self, request_body, validate: bool = True) -> tuple[Response, CreateBookingResponse | None]:
         """POST /booking — создаёт бронь и возвращает валидированный ответ"""
         response = self.post("/booking",json=request_body)
-        # print(response.json())
         if validate:
             return response, CreateBookingResponse(**response.json())
         else:
-            # print(response)
             return response, None
+
+    def remove(self, booking_id, **kwargs) -> tuple[Response, str]:
+        """DELETE /booking/{id} — удаляет бронь и возвращает текст"""
+        response = self.delete(f"/booking/{booking_id}", **kwargs)
+        print(response)
+        print(response.text)
+        return response, response.text
