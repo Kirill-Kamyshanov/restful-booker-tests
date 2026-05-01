@@ -1,4 +1,4 @@
-from services.restful_booker.booking.assertions import assert_creation, assert_deleting
+from services.restful_booker.booking.assertions import assert_creation, assert_code_and_text, assert_get_by_id
 from services.restful_booker.booking.models.booking import BookingDataRequest
 from utils.assertions import assert_status_code
 import pytest
@@ -83,7 +83,7 @@ class TestBooking:
         # удаление
         response, text = api.booking.remove(validated.bookingid)
         # проверка удаления
-        assert_deleting(response, 201, "Created")
+        assert_code_and_text(response, 201, "Created")
         # print(text)
         # print(response)
 
@@ -99,7 +99,7 @@ class TestBooking:
         cleanup.append(lambda: api.booking.remove(validated.bookingid))
         # удаление
         response, text = api.booking.remove(validated.bookingid, headers={"Authorization": token})
-        assert_deleting(response, 403, "Forbidden")
+        assert_code_and_text(response, 403, "Forbidden")
 
 
 
@@ -107,21 +107,39 @@ class TestBooking:
         """Проверка удаления несуществующего бронирования"""
         unexisted_id = 9999999
         response, text = api.booking.remove(unexisted_id)
-        assert_deleting(response, 405, "Method Not Allowed")
+        assert_code_and_text(response, 405, "Method Not Allowed")
 
 
+    def test_get_booking_by_id(self, api, cleanup):
+        """Успешное получение данных о бронировании"""
+        # создание
+        request_data = BookingDataRequest().model_dump(mode='json')
+        _, validated = api.booking.create(request_data)
+        # print(validated.bookingid)
+        cleanup.append(lambda: api.booking.remove(validated.bookingid))
+        # получение
+        response, validated2 = api.booking.get_by_id(validated.bookingid)
+        # проверка получения (тело ответа было валидировано при получении. пока оставил в ассерте ниже)
+        assert_get_by_id(response, validated2)
 
+
+    def test_get_booking_by_unexisted_id(self, api, cleanup):
+        """Попытка получить данные по несуществующему бронированию"""
+        unexisted_id = 9999999
+
+        # получение
+        response, _ = api.booking.get_by_id(unexisted_id, validate=False)
+        assert_code_and_text(response, 404, "Not Found")
 
 
 
 # Получение информации о бронировании:
-# Получение бронирования по корректному ID
-# Получение бронирования по несуществующему ID
 # Получение списка всех бронирований
 # Фильтрация бронирований по имени
 # Фильтрация бронирований по фамилии
 # Фильтрация бронирований по дате заезда
 # Фильтрация бронирований по дате выезда
+
 
 # Обновление бронирования:
 # Полное успешное обновление бронирования

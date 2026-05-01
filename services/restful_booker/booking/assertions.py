@@ -1,6 +1,7 @@
 from requests import Response
 
-from services.restful_booker.booking.models.booking import CreateBookingResponse, BookingDataRequest
+from services.restful_booker.booking.models.booking import CreateBookingResponse, BookingDataRequest, \
+    BookingDataResponse
 from utils.assertions import assert_status_code, assert_text
 
 
@@ -29,8 +30,12 @@ def assert_creation(response: Response,
 
 
 
-def assert_deleting(response: Response, expected_code: int, expected_text :str) -> None:
-    """Проверка успешного удаления бронирования: статус-код и текст ответа"""
+def assert_code_and_text(response: Response, expected_code: int, expected_text :str) -> None:
+    """Проверка статус-кода и текста ответа"""
     assert_status_code(response, expected_code)
     assert_text(response, expected_text)
 
+
+def assert_get_by_id(response: Response, response_body: BookingDataResponse) -> None:
+    """Проверка получения данных бронирования по id"""
+    assert_status_code(response, 200)
