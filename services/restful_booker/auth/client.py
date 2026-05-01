@@ -18,14 +18,3 @@ class AuthClient(BaseAPI):
             return response, AuthErrorResponse(**response.json())
 
 
-# возможно использовать и для booking. Если нет, вынести в тест логику (раскомментировать)
-    @staticmethod
-    def randomize_dynamic_fields(fields_to_update: list, test_data: dict, service: str) -> dict:
-        fake = Faker()
-        if service.lower() == "auth":
-            random_data = {"username": fake.name(), "password": fake.password()}
-            for field in test_data:
-                if field in fields_to_update:
-                    test_data[field] = random_data[field]
-            return test_data
-        return {}

@@ -1,4 +1,3 @@
-import faker
 from faker import Faker
 
 from services.restful_booker.booking.assertions import assert_creation, assert_code_and_text, assert_get_by_id, \
@@ -16,25 +15,15 @@ class TestBooking:
     def test_create_booking_successful(self, api, cleanup):
         """Создание бронирования с валидными входными данными"""
         request_data = BookingData().model_dump(mode='json')
-        print(type(request_data))
-        print(request_data)
-
         response, validated = api.booking.create(request_data)
         cleanup.append(lambda: api.booking.remove(validated.bookingid))
-        print(f"Юзер удалён {validated.bookingid}")
-        print(response)
-        print(type(validated))
+        # print(response)
+        # print(type(validated))
         # print(validated.model_dump(mode='json'))
 
         assert_creation(response,
-                        validated,
-                        request_data["firstname"],
-                        request_data["lastname"],
-                        request_data["totalprice"],
-                        request_data["depositpaid"],
-                        request_data["bookingdates"],
-                        request_data["additionalneeds"]
-                        )
+                        request_data,
+                        validated)
 
 
 
@@ -218,10 +207,6 @@ class TestBooking:
         assert_patch_booking(response, new_data, validated_patch_response)
 
 
-# Обновление бронирования:
-# Частичное успешное обновление бронирования +
-# Обновление бронирования без токена авторизации +-
-# Обновление бронирования с неверным токеном +-
 
 
 
