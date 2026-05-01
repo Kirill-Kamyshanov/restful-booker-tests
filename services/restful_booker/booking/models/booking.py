@@ -37,14 +37,12 @@ class GetIdBooking(BaseModel):
     bookingid: int = Field(gt=0)
 
 
-# Просто массив объектов GetIdBooking
-# GetListBookingsResponse = [GetIdBooking(**item).model_dump() for item in data]
 
 
 class BookingDataRequest(BaseModel):
     """данные бронирования
     запрос POST /booking
-    запрос PUT /booking/{id}
+    запрос и ответ PUT /booking/{id}
     """
     firstname: str = Field(default_factory=fake.first_name)
     lastname: str = Field(default_factory=fake.last_name)
@@ -60,7 +58,6 @@ class BookingDataRequest(BaseModel):
 class BookingDataResponse(BaseModel):
     """данные бронирования
     ответ GET /booking/{id}
-    ответ PUT /booking/{id}
     ответ PATCH /booking/{id}
     """
     firstname: str

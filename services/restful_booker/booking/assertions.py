@@ -39,3 +39,10 @@ def assert_code_and_text(response: Response, expected_code: int, expected_text :
 def assert_get_by_id(response: Response, response_body: BookingDataResponse) -> None:
     """Проверка получения данных бронирования по id"""
     assert_status_code(response, 200)
+
+
+def assert_put_booking(response: Response, new_data: BookingDataRequest, actual_data: BookingDataResponse) -> None:
+    """Проверка обновления бронирования"""
+    assert_status_code(response, 200)
+    assert new_data == actual_data, f"Данные в ответе не совпадают с переданными в PUT-запросе"
+

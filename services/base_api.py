@@ -75,9 +75,10 @@ class BaseAPI:
 
         elapsed_ms = (time.monotonic() - start) * 1000
         logger.info(
-            "api_request method=%s url=%s status=%s request_id=%s elapsed_ms=%.0f",
+            "api_request method=%s url=%s params=%s status=%s request_id=%s elapsed_ms=%.0f",
             method,
             url,
+            kwargs.get("params", {}),
             response.status_code,
             request_id,
             elapsed_ms,

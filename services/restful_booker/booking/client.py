@@ -2,7 +2,8 @@
 from requests import Response
 
 from services.base_api import BaseAPI
-from services.restful_booker.booking.models.booking import CreateBookingResponse, BookingDataResponse
+from services.restful_booker.booking.models.booking import CreateBookingResponse, BookingDataResponse, GetIdBooking, \
+    BookingDataRequest
 
 
 class BookingClient(BaseAPI):
@@ -26,3 +27,18 @@ class BookingClient(BaseAPI):
         response = self.get(f"/booking/{booking_id}")
         body = BookingDataResponse(**response.json()) if validate else response.text
         return response, body
+
+
+    def get_list_bookings(self, params: dict|None = None) -> tuple[Response, list[GetIdBooking]]:
+        """GET /booking — получение списка бронирований, возвращение JSON"""
+        response = self.get(f"/booking", params=params)
+        validated = [GetIdBooking(**item).model_dump() for item in response.json()]
+        # print(body)
+        return response, validated
+
+
+    def put_update_booking(self, booking_id: str|int, validated: BookingDataRequest) \
+            -> tuple[Response, BookingDataResponse]:
+        """PUT /booking/{id} — полное обновление бронирования, возвращение JSON"""
+        response = self.put(f"/booking/{booking_id}", json=validated)
+        return response, BookingDataResponse(**response.json())

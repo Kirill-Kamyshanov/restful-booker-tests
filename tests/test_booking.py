@@ -1,9 +1,13 @@
-from services.restful_booker.booking.assertions import assert_creation, assert_code_and_text, assert_get_by_id
+import faker
+from faker import Faker
+
+from services.restful_booker.booking.assertions import assert_creation, assert_code_and_text, assert_get_by_id, \
+    assert_put_booking
 from services.restful_booker.booking.models.booking import BookingDataRequest
 from utils.assertions import assert_status_code
 import pytest
 
-
+fake = Faker()
 
 
 class TestBooking:
@@ -132,13 +136,36 @@ class TestBooking:
         assert_code_and_text(response, 404, "Not Found")
 
 
+    @pytest.mark.parametrize("params", [None,
+                                        {"firstname": fake.first_name()},
+                                        {"lastname": fake.last_name()},
+                                        {"checkin": "2026-05-01"},
+                                        {"checkout": "2026-05-30"}
+                                        ]
+                             )
+    def test_get_all_bookings(self, api, params):
+        """Получение данных по всем бронированиям без фильтрации / с фильтрацией по квери-параметрам"""
+        # print(params)
+        response, validated = api.booking.get_list_bookings(params=params)
+        assert_status_code(response, 200)
 
-# Получение информации о бронировании:
-# Получение списка всех бронирований
-# Фильтрация бронирований по имени
-# Фильтрация бронирований по фамилии
-# Фильтрация бронирований по дате заезда
-# Фильтрация бронирований по дате выезда
+
+
+    def test_full_update_booking(self, api, cleanup, test_data):
+        """Проверка полного обновления данных бронирования методом PUT"""
+        # создание
+        request_data = BookingDataRequest().model_dump(mode='json')
+        _, validated_response = api.booking.create(request_data)
+        booking_id = validated_response.bookingid
+        cleanup.append(lambda: api.booking.remove(booking_id))
+        # обновление
+        new_data = BookingDataRequest().model_dump()
+        print(BookingDataRequest(**new_data))
+        response, validated_put_response = api.booking.put_update_booking(booking_id, new_data)
+        # проверка
+        print(validated_put_response)
+        assert_put_booking(response, BookingDataRequest(**new_data), validated_put_response)
+
 
 
 # Обновление бронирования:
