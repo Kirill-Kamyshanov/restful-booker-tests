@@ -39,10 +39,12 @@ class GetIdBooking(BaseModel):
 
 
 
-class BookingDataRequest(BaseModel):
+class BookingData(BaseModel):
     """данные бронирования
+    ответ GET /booking/{id}
     запрос POST /booking
     запрос и ответ PUT /booking/{id}
+    ответ PATCH /booking/{id}
     """
     firstname: str = Field(default_factory=fake.first_name)
     lastname: str = Field(default_factory=fake.last_name)
@@ -55,17 +57,17 @@ class BookingDataRequest(BaseModel):
 
 
 
-class BookingDataResponse(BaseModel):
-    """данные бронирования
-    ответ GET /booking/{id}
-    ответ PATCH /booking/{id}
-    """
-    firstname: str
-    lastname: str
-    totalprice: int = Field(gt=0)
-    depositpaid: bool
-    bookingdates: BookingDates
-    additionalneeds: str
+# class BookingDataResponse(BaseModel):
+#     """данные бронирования
+#     ответ GET /booking/{id}
+#     ответ PATCH /booking/{id}
+#     """
+#     firstname: str
+#     lastname: str
+#     totalprice: int = Field(gt=0)
+#     depositpaid: bool
+#     bookingdates: BookingDates
+#     additionalneeds: str
 
 
 
@@ -75,10 +77,10 @@ class BookingDataResponse(BaseModel):
 class CreateBookingResponse(BaseModel):
     """ответ при успешном создании брони"""
     bookingid: int = Field(gt=0)
-    booking: BookingDataResponse
+    booking: BookingData
 
 
-class UpdateBookingPatchResponse(BaseModel):
+class UpdateBookingPatchRequest(BaseModel):
     """запрос на частичное обновление брони"""
     firstname: str | None = None
     lastname: str | None = None
