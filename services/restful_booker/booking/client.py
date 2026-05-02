@@ -2,8 +2,12 @@
 from requests import Response
 
 from services.base_api import BaseAPI
-from services.restful_booker.booking.models.booking import CreateBookingResponse, GetIdBooking, BookingData, \
-    UpdateBookingPatchRequest
+from services.restful_booker.booking.models.booking import (
+    BookingData,
+    CreateBookingResponse,
+    GetIdBooking,
+    UpdateBookingPatchRequest,
+)
 
 
 class BookingClient(BaseAPI):
@@ -31,7 +35,7 @@ class BookingClient(BaseAPI):
 
     def get_list_bookings(self, params: dict|None = None) -> tuple[Response, list[GetIdBooking]]:
         """GET /booking — получение списка бронирований, возвращение JSON"""
-        response = self.get(f"/booking", params=params)
+        response = self.get("/booking", params=params)
         validated = [GetIdBooking(**item).model_dump() for item in response.json()]
         # print(body)
         return response, validated

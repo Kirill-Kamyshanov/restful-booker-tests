@@ -2,7 +2,7 @@
 name = "restful-booker-tests"
 version = "1.0.0"
 description = "API autotests for restful booker"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 
 [tool.pytest.ini_options]
 minversion = "8.0"

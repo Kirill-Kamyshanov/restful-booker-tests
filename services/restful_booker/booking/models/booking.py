@@ -1,9 +1,8 @@
 import random
-from datetime import timedelta
-from datetime import date
+from datetime import date, timedelta
 
 from faker import Faker
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field
 
 fake = Faker()
 
@@ -22,8 +21,9 @@ def _random_price():
 
 class BookingDates(BaseModel):
     """вспомогательная структура с датами заселения-выселения"""
-    checkin: str = Field(default_factory=lambda:  (date.today() + timedelta(days=random.randrange(-30, 30))).isoformat())
-    checkout: str = Field(default_factory=lambda: (date.today() + timedelta(days=random.randrange(31, 100))).isoformat())
+    checkin: str = Field(default_factory=lambda: (date.today() + timedelta(days=random.randrange(-30, 30))).isoformat())
+    checkout: str = Field(default_factory=lambda:
+    (date.today() + timedelta(days=random.randrange(31, 100))).isoformat())
 
 
 class BookingDatesforPatchRequest(BaseModel):

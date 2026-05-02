@@ -1,16 +1,16 @@
+import json as json_lib
 import logging
 import time
 import uuid
 from typing import Any
-import json as json_lib
-from requests import ConnectionError as RequestsConnectionError, RequestException
 
 import allure
-from requests import Response, Session, Timeout
+from requests import ConnectionError as RequestsConnectionError
+from requests import RequestException, Response, Session, Timeout
 from requests.adapters import HTTPAdapter
 from urllib3 import Retry
 
-from services.exceptions import ApiTimeoutError, ApiConnectionError, ApiError
+from services.exceptions import ApiConnectionError, ApiError, ApiTimeoutError
 
 logger = logging.getLogger("api")
 

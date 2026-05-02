@@ -1,6 +1,6 @@
 from requests import Response
 
-from services.restful_booker.booking.models.booking import CreateBookingResponse, BookingData, UpdateBookingPatchRequest
+from services.restful_booker.booking.models.booking import BookingData, CreateBookingResponse, UpdateBookingPatchRequest
 from utils.assertions import assert_status_code, assert_text
 
 
@@ -27,14 +27,13 @@ def assert_get_by_id(response: Response, response_body: BookingData) -> None:
 def assert_put_booking(response: Response, new_data: BookingData, actual_data: BookingData) -> None:
     """Проверка полного обновления бронирования"""
     assert_status_code(response, 200)
-    assert new_data == actual_data, f"Данные в ответе не совпадают с переданными в PUT-запросе"
+    assert new_data == actual_data, "Данные в ответе не совпадают с переданными в PUT-запросе"
 
 
-# проверяет только плослие поля на верхнем уровне
+# проверяет только плоские поля на верхнем уровне
 def assert_patch_booking(response: Response, new_data: UpdateBookingPatchRequest, actual_data: BookingData) -> None:
     """Проверка частичного обновления бронирования"""
     assert_status_code(response, 200)
     actual_dict = actual_data.model_dump()
     for k, v in new_data.items():
-        print(k, v)
-        assert actual_dict[k] == v, f"Ожидалось значение {k} == {v}, но получено {actual_dict["k"]}"
+        assert actual_dict[k] == v, f"Ожидалось значение {k} == {v}, но получено {actual_dict['k']}"

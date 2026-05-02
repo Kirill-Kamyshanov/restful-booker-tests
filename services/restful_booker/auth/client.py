@@ -1,9 +1,8 @@
-from faker import Faker
 
-from services.base_api import BaseAPI
 from requests import Response
 
-from services.restful_booker.auth.models.auth import AuthResponse, AuthErrorResponse
+from services.base_api import BaseAPI
+from services.restful_booker.auth.models.auth import AuthErrorResponse, AuthResponse
 
 
 class AuthClient(BaseAPI):

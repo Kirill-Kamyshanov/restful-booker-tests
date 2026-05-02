@@ -3,6 +3,7 @@ from requests import Response
 from services.restful_booker.auth.models.auth import AuthErrorResponse, AuthResponse
 from utils.assertions import assert_status_code
 
+
 def assert_auth(response: Response, validated: AuthResponse | AuthErrorResponse) -> None:
     """Проверка авторизации"""
     assert_status_code(response, 200)

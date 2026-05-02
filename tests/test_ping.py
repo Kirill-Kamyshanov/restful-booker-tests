@@ -1,5 +1,3 @@
-import pytest
-
 from services.restful_booker.ping.assertions import assert_ping
 
 

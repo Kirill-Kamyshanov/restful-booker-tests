@@ -1,4 +1,5 @@
 from requests import Response
+
 from utils.assertions import assert_status_code, assert_text
 
 
