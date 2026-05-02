@@ -14,17 +14,10 @@ class Environment(StrEnum):
         return self.value.capitalize()
 
 
-
 _URLS: dict[Environment, str] = {
     Environment.DEV: "https://restful-booker.herokuapp.com",
     Environment.PROD: "https://restful-booker.herokuapp.com",
 }
-
-
-
-
-
-
 
 
 class EnvironmentConfig(BaseSettings):
@@ -46,13 +39,8 @@ class EnvironmentConfig(BaseSettings):
         return f"- Booking API: {self.booking_url}"
 
 
-
-
-
 def load_environment(env: Environment | str) -> EnvironmentConfig:
     """Возвращает конфиг для запрошенного окружения.
-
-    URL берётся из статической таблицы _URLS, секреты — из .env / env vars.
-    """
+    URL берётся из статической таблицы _URLS, секреты — из .env / env vars."""
     env = env if isinstance(env, Environment) else Environment(env.lower())
     return EnvironmentConfig(booking_url=_URLS[env])

@@ -1,3 +1,4 @@
+import allure
 import pytest
 from faker import Faker
 
@@ -17,31 +18,43 @@ fake = Faker()
 @pytest.fixture
 def test_user_id(api) -> int:
     """Фикстура для создания тестового юзера. Оставлена здесь, т.к. относится только в этому ресурсу"""
-    request_data = BookingData().model_dump(mode='json')
-    _, validated = api.booking.create(request_data)
-    return validated.bookingid
+    with allure.step("Создание тестового бронирования"):
+        request_data = BookingData().model_dump(mode='json')
+        _, validated = api.booking.create(request_data)
+        return validated.bookingid
 
 
+@allure.feature("Booking")
 class TestBooking:
 
+    @pytest.mark.regression
+    @pytest.mark.smoke
+    @allure.testcase("https://jira.example.com/TC-3", "TC-3")
+    @allure.title("Успешное создание бронирования")
     def test_create_booking_successful(self, api, cleanup):
         """Создание бронирования с валидными входными данными"""
-        request_data = BookingData().model_dump(mode='json')
-        response, validated = api.booking.create(request_data)
-        cleanup.append(lambda: api.booking.remove(validated.bookingid))
-
-        assert_creation(response, request_data, validated)
+        with allure.step("Отправка запроса на создание"):
+            request_data = BookingData().model_dump(mode='json')
+            response, validated = api.booking.create(request_data)
+            cleanup.append(lambda: api.booking.remove(validated.bookingid))
+        with allure.step("Проверка успешности создания"):
+            assert_creation(response, request_data, validated)
 
     # Тут поведение системы специфическое. Ждал код 400, получил 200 с некорректными датами. Но они были обработаны
     # Оставил тест как есть. В реальном проекте уточнил бы требования
+    @pytest.mark.regression
+    @allure.testcase("https://jira.example.com/TC-4", "TC-4")
+    @allure.title("Создание бронирования с некорректными датами")
     def test_create_booking_with_invalid_dates(self, api, test_data):
         """Создание бронирования с некорректными датами"""
-        request_data = test_data["booking"]["invalid_dates_post"]
-
-        response, _ = api.booking.create(request_data, validate=False)
-        assert_status_code(response, 400)
+        with allure.step("Отправка запроса"):
+            request_data = test_data["booking"]["invalid_dates_post"]
+            response, _ = api.booking.create(request_data, validate=False)
+        with allure.step("Проверка ответа"):
+            assert_status_code(response, 400)
 
     # тут баг - успешное создание без поля additionalneeds (обязательное)
+    @pytest.mark.regression
     @pytest.mark.parametrize("deleting_field", [
         "firstname",
         "lastname",
@@ -52,59 +65,81 @@ class TestBooking:
         "checkout",
         "additionalneeds"
     ])
+    @allure.testcase("https://jira.example.com/TC-5", "TC-5")
+    @allure.title("Создание бронирования без обязательных полей в запросе")
     def test_create_booking_without_necessary_fields(self, api, deleting_field):
         """Создание бронирования без обязательных полей в запросе"""
-        request_data = BookingData().model_dump(mode='json')
+        with allure.step("Подготовка тестовых данных"):
+            request_data = BookingData().model_dump(mode='json')
 
-        if deleting_field == "checkin" or deleting_field == "checkout":
-            del request_data["bookingdates"][deleting_field]
-        else:
-            del request_data[deleting_field]
+            if deleting_field == "checkin" or deleting_field == "checkout":
+                del request_data["bookingdates"][deleting_field]
+            else:
+                del request_data[deleting_field]
+        with allure.step("Отправка запроса"):
+            response, _ = api.booking.create(request_data, validate=False)
+        with allure.step("Проверка ответа"):
+            assert_status_code(response, 500)
 
-        response, _ = api.booking.create(request_data, validate=False)
-        assert_status_code(response, 500)
-
+    @pytest.mark.regression
+    @pytest.mark.smoke
+    @allure.testcase("https://jira.example.com/TC-6", "TC-6")
+    @allure.title("Успешное удаление бронирования")
     def test_delete_booking_successful(self, api, test_user_id):
         """Проверяет успешное удаление бронирования"""
+        with allure.step("Отправка запроса"):
+            response, _ = api.booking.remove(test_user_id)
+        with allure.step("Проверка ответа"):
+            assert_code_and_text(response, 201, "Created")
 
-        # удаление
-        response, _ = api.booking.remove(test_user_id)
-        # проверка удаления
-        assert_code_and_text(response, 201, "Created")
-
+    @pytest.mark.regression
     @pytest.mark.parametrize("token", [None, "battletoads2"])
+    @allure.testcase("https://jira.example.com/TC-7", "TC-7")
+    @allure.title("Удаление бронирования без валидного токена")
     def test_delete_booking_with_invalid_creds(self, api, token, cleanup, test_user_id):
         """Проверяет получение ошибки при попытке удалить бронирование
         без токена авторизации / с невалидным токеном"""
-        # создание
         cleanup.append(lambda: api.booking.remove(test_user_id))
-        # удаление
-        response, _ = api.booking.remove(test_user_id, headers={"Authorization": token})
-        assert_code_and_text(response, 403, "Forbidden")
+        with allure.step("Отправка запроса"):
+            response, _ = api.booking.remove(test_user_id, headers={"Authorization": token})
+        with allure.step("Проверка ответа"):
+            assert_code_and_text(response, 403, "Forbidden")
 
+    @pytest.mark.regression
+    @allure.testcase("https://jira.example.com/TC-8", "TC-8")
+    @allure.title("Удаление несуществующего бронирования")
     def test_delete_unexisted_booking(self, api, cleanup):
         """Проверка удаления несуществующего бронирования"""
         unexisted_id = 9999999
-        response, _ = api.booking.remove(unexisted_id)
-        assert_code_and_text(response, 405, "Method Not Allowed")
+        with allure.step("Отправка запроса"):
+            response, _ = api.booking.remove(unexisted_id)
+        with allure.step("Проверка ответа"):
+            assert_code_and_text(response, 405, "Method Not Allowed")
 
+    @pytest.mark.regression
+    @pytest.mark.smoke
+    @allure.testcase("https://jira.example.com/TC-9", "TC-9")
+    @allure.title("Получение данных о бронировании по id")
     def test_get_booking_by_id(self, api, cleanup, test_user_id):
         """Успешное получение данных о бронировании"""
-        # создание
         cleanup.append(lambda: api.booking.remove(test_user_id))
-        # получение
-        response, validated2 = api.booking.get_by_id(test_user_id)
-        # проверка получения (тело ответа было валидировано при получении. пока оставил в ассерте ниже)
-        assert_get_by_id(response, validated2)
+        with allure.step("Отправка запроса"):
+            response, validated2 = api.booking.get_by_id(test_user_id)
+        with allure.step("Проверка ответа"):
+            assert_get_by_id(response, validated2)
 
+    @pytest.mark.regression
+    @allure.testcase("https://jira.example.com/TC-10", "TC-10")
+    @allure.title("Получение данных о несуществующем бронировании")
     def test_get_booking_by_unexisted_id(self, api, cleanup):
         """Попытка получить данные по несуществующему бронированию"""
         unexisted_id = 9999999
+        with allure.step("Отправка запроса"):
+            response, _ = api.booking.get_by_id(unexisted_id, validate=False)
+        with allure.step("Проверка ответа"):
+            assert_code_and_text(response, 404, "Not Found")
 
-        # получение
-        response, _ = api.booking.get_by_id(unexisted_id, validate=False)
-        assert_code_and_text(response, 404, "Not Found")
-
+    @pytest.mark.regression
     @pytest.mark.parametrize("params", [None,
                                         {"firstname": fake.first_name()},
                                         {"lastname": fake.last_name()},
@@ -112,53 +147,64 @@ class TestBooking:
                                         {"checkout": "2026-05-30"}
                                         ]
                              )
+    @allure.testcase("https://jira.example.com/TC-11", "TC-11")
+    @allure.title("Получение данных по всем бронированиям")
     def test_get_all_bookings(self, api, params):
         """Получение данных по всем бронированиям без фильтрации / с фильтрацией по квери-параметрам"""
-        response, _ = api.booking.get_list_bookings(params=params)
-        assert_status_code(response, 200)
+        with allure.step("Отправка запроса"):
+            response, _ = api.booking.get_list_bookings(params=params)
+        with allure.step("Проверка ответа"):
+            assert_status_code(response, 200)
 
+    @pytest.mark.regression
+    @pytest.mark.smoke
+    @allure.testcase("https://jira.example.com/TC-12", "TC-12")
+    @allure.title("Полное успешное обновление данных бронирования методом PUT")
     def test_full_update_booking(self, api, cleanup, test_user_id):
         """Проверка успешного полного обновления данных бронирования методом PUT"""
-        # создание
-
         cleanup.append(lambda: api.booking.remove(test_user_id))
-        # обновление
-        new_data = BookingData().model_dump()
-        response, validated_put_response = api.booking.update_booking(test_user_id, new_data, "put")
-        # проверка
-        assert_put_booking(response, BookingData(**new_data), validated_put_response)
+        with allure.step("Отправка запроса"):
+            new_data = BookingData().model_dump()
+            response, validated_put_response = api.booking.update_booking(test_user_id, new_data, "put")
+        with allure.step("Проверка ответа"):
+            assert_put_booking(response, BookingData(**new_data), validated_put_response)
 
+    @pytest.mark.regression
     @pytest.mark.parametrize("method", ["put", "patch"])
     @pytest.mark.parametrize("token", [None, "battletoads2"])
+    @allure.testcase("https://jira.example.com/TC-13", "TC-13")
+    @allure.title("Удаление бронирования с невалидным/отсутствующим токеном авторизации")
     def test_update_booking_with_invalid_creds(self, api, cleanup, test_data, token, method, test_user_id):
         """Проверка полного/частичного обновления данных бронирования с невалидным/отсутствующим токеном"""
-        # создание
         cleanup.append(lambda: api.booking.remove(test_user_id))
-        # обновление
-        new_data = BookingData().model_dump()
-        response, text_response = api.booking.update_booking(test_user_id, new_data, method, validate=False,
-                                                             headers={"Authorization": token})
-        # проверка
-        assert_code_and_text(response, 403, text_response)
+        with allure.step("Отправка запроса"):
+            new_data = BookingData().model_dump()
+            response, text_response = api.booking.update_booking(test_user_id, new_data, method, validate=False,
+                                                                 headers={"Authorization": token})
+        with allure.step("Проверка ответа"):
+            assert_code_and_text(response, 403, text_response)
 
+    @pytest.mark.regression
     @pytest.mark.parametrize("method", ["put", "patch"])
+    @allure.testcase("https://jira.example.com/TC-14", "TC-14")
+    @allure.title("Обновление несуществующего бронирования")
     def test_update_unexisted_booking(self, api, cleanup, method):
         """Проверка полного/частичного обновления несуществующего бронирования"""
-        # создание
         unexisted_id = 9999999
-        # обновление
-        new_data = BookingData().model_dump()
-        response, _ = api.booking.update_booking(unexisted_id, new_data, method, validate=False)
-        # проверка
-        assert_code_and_text(response, 405, "Method Not Allowed")
+        with allure.step("Отправка запроса"):
+            new_data = BookingData().model_dump()
+            response, _ = api.booking.update_booking(unexisted_id, new_data, method, validate=False)
+        with allure.step("Проверка ответа"):
+            assert_code_and_text(response, 405, "Method Not Allowed")
 
+    @pytest.mark.regression
+    @allure.testcase("https://jira.example.com/TC-15", "TC-15")
+    @allure.title("Успешное частичное обновление бронирования методом PATCH")
     def test_patch_update_booking(self, api, cleanup, test_data, test_user_id):
         """Проверка успешного частичного обновления данных бронирования методом PATCH"""
-        # создание
-
         cleanup.append(lambda: api.booking.remove(test_user_id))
-        # обновление
-        new_data = UpdateBookingPatchRequest(**test_data["booking"]["valid_patch"]).model_dump(exclude_none=True)
-        response, validated_patch_response = api.booking.update_booking(test_user_id, new_data, "patch")
-        # проверка обновления
-        assert_patch_booking(response, new_data, validated_patch_response)
+        with allure.step("Отправка запроса"):
+            new_data = UpdateBookingPatchRequest(**test_data["booking"]["valid_patch"]).model_dump(exclude_none=True)
+            response, validated_patch_response = api.booking.update_booking(test_user_id, new_data, "patch")
+        with allure.step("Проверка ответа"):
+            assert_patch_booking(response, new_data, validated_patch_response)

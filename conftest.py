@@ -40,7 +40,7 @@ def env_config(env: Environment) -> EnvironmentConfig:
 @pytest.fixture(scope="session")
 def test_data(env: Environment) -> dict:
     """Загружает тестовые данные окружения из test_data/{env}.json"""
-    path = Path(__file__).parent / "test_data" /f"{env}.json"
+    path = Path(__file__).parent / "test_data" / f"{env}.json"
     with path.open(encoding="utf-8") as f:
         return json.load(f)
 
@@ -50,6 +50,7 @@ def api(env_config: EnvironmentConfig) -> RestfulBooker:
     """Главный фасад над сервисом reqres.in: api.ping / api.booking / api.auth."""
     return RestfulBooker(env_config)
 
+
 @pytest.fixture
 def cleanup() -> Generator[list[Callable[[], None]], None, None]:
     """Список действий очистки, которые выполнятся после теста (в обратном порядке).
@@ -58,9 +59,9 @@ def cleanup() -> Generator[list[Callable[[], None]], None, None]:
         cleanup.append(lambda: api.users.remove(user_id))
     После теста все действия выполняются с конца списка. Ошибка одного не прерывает остальные.
     """
-    tasks : list[Callable[[], None]] = []
+    tasks: list[Callable[[], None]] = []
     yield tasks
-    errors : list[Exception] = []
+    errors: list[Exception] = []
     for task in reversed(tasks):
         try:
             task()

@@ -1,4 +1,3 @@
-
 from requests import Response
 
 from services.base_api import BaseAPI
@@ -9,11 +8,7 @@ class AuthClient(BaseAPI):
     """Фасад над ресурсом /auth"""
 
     def login(self, request_body: str, is_positive: bool = True) -> tuple[Response, AuthResponse | AuthErrorResponse]:
-        """Отправка запроса на авторизацию"""
+        """POST /auth - Отправка запроса на авторизацию"""
         response = self.post("/auth", json=request_body)
-        if is_positive:
-            return response, AuthResponse(**response.json())
-        else:
-            return response, AuthErrorResponse(**response.json())
-
-
+        body = AuthResponse(**response.json()) if is_positive else AuthErrorResponse(**response.json())
+        return response, body

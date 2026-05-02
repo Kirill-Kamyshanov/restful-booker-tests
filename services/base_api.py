@@ -20,7 +20,6 @@ DEFAULT_BACKOFF = 0.3
 RETRY_STATUSES = (500, 502, 503, 504)
 
 
-
 class BaseAPI:
     """Базовый HTTP-клиент: единый _request с retry, structured-logging и request_id"""
 
@@ -29,7 +28,6 @@ class BaseAPI:
         self.base_url = env_config.booking_url.rstrip("/")
         self.timeout = timeout
         self.session = self._build_session(env_config)
-
 
     def _request(self, method: str, path: str, **kwargs: Any) -> Response:
         """Выполняет HTTP-запрос: генерирует X-Request-Id, логирует, ловит транспортные ошибки.
@@ -86,11 +84,6 @@ class BaseAPI:
         self._attach_response(response, elapsed_ms, request_id)
         return response
 
-
-
-
-
-
     @staticmethod
     def _build_session(env_config) -> Session:
         """Создаёт requests.Session с retry-политикой для 5xx, пулом соединений и дефолтными заголовками."""
@@ -110,9 +103,6 @@ class BaseAPI:
         if getattr(env_config, "authorization", ""):
             session.headers["Authorization"] = env_config.authorization
         return session
-
-
-
 
     @staticmethod
     def _attach_request(
@@ -137,8 +127,6 @@ class BaseAPI:
             attachment_type=allure.attachment_type.JSON,
         )
 
-
-
     @staticmethod
     def _attach_response(response: Response, elapsed_ms: float, request_id: str) -> None:
         """Прикрепляет к Allure тело ответа c request_id, статусом и длительностью; не-JSON отдаёт как текст."""
@@ -150,9 +138,6 @@ class BaseAPI:
             atype = allure.attachment_type.TEXT
         body = f"# request_id={request_id} status={response.status_code} elapsed_ms={elapsed_ms:.0f}\n{payload}"
         allure.attach(body=body, name=f"RESPONSE {response.status_code}", attachment_type=atype)
-
-
-
 
     def get(self, path: str, **kwargs) -> Response:
         """Шорткат над _request для GET-запроса."""
@@ -173,6 +158,3 @@ class BaseAPI:
     def delete(self, path: str, **kwargs) -> Response:
         """Шорткат над _request для DELETE-запроса."""
         return self._request("DELETE", path, **kwargs)
-
-
-

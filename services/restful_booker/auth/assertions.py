@@ -5,7 +5,7 @@ from utils.assertions import assert_status_code
 
 
 def assert_auth(response: Response, validated: AuthResponse | AuthErrorResponse) -> None:
-    """Проверка авторизации"""
+    """Проверка авторизации. Для кейсов с ошибкой проверяется конкретное тело ответа"""
     assert_status_code(response, 200)
 
     if isinstance(validated, AuthErrorResponse):

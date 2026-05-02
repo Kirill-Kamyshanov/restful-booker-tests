@@ -6,13 +6,16 @@ from pydantic import BaseModel, Field
 
 fake = Faker()
 
+
 def _additional_needs():
     """Вспомогательная функция для генерации тестовых данных для поля 'additionalneeds'"""
     return random.choice(["Breakfast", "Lunch", "Dinner", "Handicapp parking", "", "Gym", "Brewery", "Пожрать"])
 
+
 def _random_flag():
     """вспомогательная функция для генерации случайного значения флагов"""
     return random.choice([True, False])
+
 
 def _random_price():
     """Вспомогательная функция для генерации случайного значения цены"""
@@ -37,8 +40,6 @@ class GetIdBooking(BaseModel):
     bookingid: int = Field(gt=0)
 
 
-
-
 class BookingData(BaseModel):
     """данные бронирования
     ответ GET /booking/{id}
@@ -52,26 +53,6 @@ class BookingData(BaseModel):
     depositpaid: bool = Field(default_factory=_random_flag)
     bookingdates: BookingDates = Field(default_factory=BookingDates)
     additionalneeds: str = Field(default_factory=_additional_needs)
-
-
-
-
-
-# class BookingDataResponse(BaseModel):
-#     """данные бронирования
-#     ответ GET /booking/{id}
-#     ответ PATCH /booking/{id}
-#     """
-#     firstname: str
-#     lastname: str
-#     totalprice: int = Field(gt=0)
-#     depositpaid: bool
-#     bookingdates: BookingDates
-#     additionalneeds: str
-
-
-
-
 
 
 class CreateBookingResponse(BaseModel):
