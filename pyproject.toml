@@ -1,0 +1,54 @@
+[project]
+name = "restful-booker-tests"
+version = "1.0.0"
+description = "API autotests for restful booker"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+markers = [
+    "smoke: smoke tests",
+    "regression: regression tests",
+]
+addopts = [
+    "--alluredir=allure-results",
+    "--strict-markers",
+    "-ra",
+    "--reruns=2",
+    "--reruns-delay=1",
+    "--timeout=60",
+]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["venv", "allure-results", ".pytest_cache"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # Ошибки PEP8 (лишние пробелы, неправильные отступы)
+    "W",    # Предупреждения PEP8 (Лишние пустые строки)
+    "F",    # Неиспользуемые импорты/переменные
+    "I",    # Сортировка импортов
+    "B",    # Потенциальные баги (assert False)
+    "UP",   # Устаревший синтаксис (type вместо isinstanse)
+    "RUF",  # ruff-specific
+    "SIM",  # flake8-simplify
+    "C4",   # flake8-comprehensions
+]
+ignore = [
+    "B008",    # function call in default arg (Pydantic Field)
+    "RUF001",  # cyrillic ambiguous chars (тексты на русском)
+    "RUF002",
+    "RUF003",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]  # assert allowed in tests
+
+[tool.ruff.format]
+quote-style = "double"
