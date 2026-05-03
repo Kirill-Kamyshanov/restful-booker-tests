@@ -25,11 +25,11 @@ class TestAuth:
         """Проверяет авторизацию с валидными/невалидными входными данными"""
         with allure.step("Подготовка тестовых данных"):
             if not is_positive:
-                data = test_data["auth"][auth_case]
+                data = dict(test_data["auth"][auth_case])
                 fields = {"username": self.fake.name(), "password": self.fake.password()}
                 for field in data:
                     if field in fields:
-                        test_data["auth"][auth_case][field] = fields[field]
+                        data[field] = fields[field]
             else:
                 data = AuthRequest(**test_data["auth"][auth_case]).model_dump()
         with allure.step("Отправка запроса на авторизацию"):
