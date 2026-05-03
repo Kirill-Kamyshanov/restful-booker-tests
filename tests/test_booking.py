@@ -179,10 +179,10 @@ class TestBooking:
         cleanup.append(lambda: api.booking.remove(test_user_id))
         with allure.step("Отправка запроса"):
             new_data = BookingData().model_dump()
-            response, text_response = api.booking.update_booking(test_user_id, new_data, method, validate=False,
+            response, _ = api.booking.update_booking(test_user_id, new_data, method, validate=False,
                                                                  headers={"Authorization": token})
         with allure.step("Проверка ответа"):
-            assert_code_and_text(response, 403, text_response)
+            assert_code_and_text(response, 403, "Forbidden")
 
     @pytest.mark.regression
     @pytest.mark.parametrize("method", ["put", "patch"])

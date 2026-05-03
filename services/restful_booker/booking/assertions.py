@@ -34,4 +34,4 @@ def assert_patch_booking(response: Response, new_data: UpdateBookingPatchRequest
     assert_status_code(response, 200)
     actual_dict = actual_data.model_dump()
     for k, v in new_data.items():
-        assert actual_dict[k] == v, f"Ожидалось значение {k} == {v}, но получено {actual_dict['k']}"
+        assert actual_dict[k] == v, f"Ожидалось значение {k} == {v}, но получено {actual_dict[k]}"

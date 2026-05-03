@@ -3,3 +3,6 @@ allure-results
 __pycache__
 .idea
 sandbox.py
+venv/
+.pytest_cache/
+*.pyc
