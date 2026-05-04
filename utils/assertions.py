@@ -7,7 +7,7 @@ def assert_status_code(response: Response, expected_code: int) -> None:
         f"Ожидался статус-код {expected_code}, но получен {response.status_code} : {response.text}"
 
 
-def assert_text(response: Response, expected_text: str) -> None:
+def assert_response_text(response: Response, expected_text: str) -> None:
     """Проверка, что полученный текст ответа соответствует ожидаемому"""
     assert response.text == expected_text, \
         f"Ожидался текст {expected_text}, но получен {response.text}"

@@ -3,11 +3,11 @@ import pytest
 from faker import Faker
 
 from services.restful_booker.booking.assertions import (
+    assert_booking_created,
+    assert_booking_updated_patch,
+    assert_booking_updated_put,
     assert_code_and_text,
-    assert_creation,
     assert_get_by_id,
-    assert_patch_booking,
-    assert_put_booking,
 )
 from services.restful_booker.booking.models.booking import BookingData, UpdateBookingPatchRequest
 from utils.assertions import assert_status_code
@@ -38,7 +38,7 @@ class TestBooking:
             response, validated = api.booking.create(request_data)
             cleanup.append(lambda: api.booking.remove(validated.bookingid))
         with allure.step("Проверка успешности создания"):
-            assert_creation(response, request_data, validated)
+            assert_booking_created(response, request_data, validated)
 
     # Тут поведение системы специфическое. Ждал код 400, получил 200 с некорректными датами. Но они были обработаны
     # Оставил тест как есть. В реальном проекте уточнил бы требования
@@ -167,7 +167,7 @@ class TestBooking:
             new_data = BookingData().model_dump()
             response, validated_put_response = api.booking.update_booking(test_user_id, new_data, "put")
         with allure.step("Проверка ответа"):
-            assert_put_booking(response, BookingData(**new_data), validated_put_response)
+            assert_booking_updated_put(response, BookingData(**new_data), validated_put_response)
 
     @pytest.mark.regression
     @pytest.mark.parametrize("method", ["put", "patch"])
@@ -207,4 +207,4 @@ class TestBooking:
             new_data = UpdateBookingPatchRequest(**test_data["booking"]["valid_patch"]).model_dump(exclude_none=True)
             response, validated_patch_response = api.booking.update_booking(test_user_id, new_data, "patch")
         with allure.step("Проверка ответа"):
-            assert_patch_booking(response, new_data, validated_patch_response)
+            assert_booking_updated_patch(response, new_data, validated_patch_response)
