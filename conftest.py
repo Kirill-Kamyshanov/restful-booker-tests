@@ -15,7 +15,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
         "--env",
         action="store",
         default="dev",
-        help="Окружение для запуска тестов (dev/prod)"
+        help="Окружение для запуска тестов (dev/stage)"
     )
 
 
@@ -27,6 +27,20 @@ def env(request: pytest.FixtureRequest) -> Environment:
         return Environment(env_name.lower())
     except ValueError as exc:
         raise ValueError(f"Некорректное окружение: {env_name}. Используйте одно из: dev/stage") from exc
+
+
+def pytest_configure(config: pytest.Config) -> None:
+    """Хук контролирует переданное при запуске окружение. При невалидном значении --env тесты не запустятся.
+    Выполняется после парсинга аргументов, но до начала сбора тестов.
+    'env_name' берётся из переданного в CLI/дефолтное
+    'allowed' создаётся из доступных окружений в классе Environment"""
+    env_name = config.getoption("--env")
+    allowed = [x.value for x in Environment]
+    if env_name.lower() not in allowed:
+        pytest.exit(f"Неизвестное окружение: {env_name}. Используйте --env=dev или --env=stage")
+
+
+
 
 
 @pytest.fixture(scope="session")
