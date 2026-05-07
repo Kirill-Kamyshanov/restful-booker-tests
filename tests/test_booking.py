@@ -3,11 +3,13 @@ import pytest
 from faker import Faker
 
 from services.restful_booker.booking.assertions import (
-    assert_code_and_text,
     assert_booking_created,
-    assert_get_by_id,
     assert_booking_updated_patch,
-    assert_booking_updated_put, assert_forbidden, assert_not_found,
+    assert_booking_updated_put,
+    assert_code_and_text,
+    assert_forbidden,
+    assert_get_by_id,
+    assert_not_found,
 )
 from services.restful_booker.booking.models.booking import BookingData, UpdateBookingPatchRequest
 from utils.assertions import assert_status_code
@@ -122,7 +124,7 @@ class TestBooking:
     def test_get_booking_by_id(self, api, test_booking_id):
         """Успешное получение данных о бронировании"""
         with allure.step("Отправка запроса"):
-            response, validated2 = api.booking.get_by_id(test_booking_id)
+            response, _ = api.booking.get_by_id(test_booking_id)
         with allure.step("Проверка ответа"):
             assert_get_by_id(response)
 
