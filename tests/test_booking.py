@@ -95,13 +95,14 @@ class TestBooking:
             assert_code_and_text(response, 201, "Created")
 
     @pytest.mark.regression
-    @pytest.mark.parametrize("token", [None, "battletoads2"])
+    @pytest.mark.parametrize("token", [None, "invalid_token"])
     @allure.testcase("https://jira.example.com/TC-7", "TC-7")
     @allure.title("Удаление бронирования без валидного токена")
-    def test_delete_booking_with_invalid_creds(self, api, token, test_booking_id):
+    def test_delete_booking_with_invalid_creds(self, api, token, test_booking_id, test_data):
         """Проверяет получение ошибки при попытке удалить бронирование
         без токена авторизации / с невалидным токеном"""
         with allure.step("Отправка запроса"):
+            token = token if not token else test_data["booking"][token]
             response, _ = api.booking.remove(test_booking_id, headers={"Authorization": token})
         with allure.step("Проверка ответа"):
             assert_forbidden(response)

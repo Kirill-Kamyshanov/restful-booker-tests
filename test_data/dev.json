@@ -8,6 +8,7 @@
         "expected_error_body": {"reason": "Bad credentials"}
     },
     "booking": {
+        "invalid_token": "some_token",
         "valid_id": 2,
         "invalid_id": 9999,
         "valid_patch": {"firstname": "James_newman", "lastname": "Brown_newman"},
