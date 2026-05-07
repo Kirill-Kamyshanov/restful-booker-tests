@@ -1,3 +1,4 @@
+import allure
 from requests import Response
 
 from utils.assertions import assert_status_code, assert_text
@@ -5,6 +6,7 @@ from utils.assertions import assert_status_code, assert_text
 
 def assert_ping(response: Response) -> None:
     """Проверяет успешное получение ресурса: статус 201 и совпадение текста."""
-    expected_text = "Created"
-    assert_text(response, expected_text)
-    assert_status_code(response, 201)
+    with allure.step("Проверка получения ресурса: статус-код и текст"):
+        expected_text = "Created"
+        assert_text(response, expected_text)
+        assert_status_code(response, 201)

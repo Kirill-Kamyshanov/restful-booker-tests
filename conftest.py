@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 from config.environments import Environment, EnvironmentConfig, load_environment
-from services.restful_booker.api import RestfulBooker
+from services.restful_booker.api import RestfulBookerApi
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
@@ -60,9 +60,9 @@ def test_data(env: Environment) -> dict:
 
 
 @pytest.fixture
-def api(env_config: EnvironmentConfig) -> RestfulBooker:
+def api(env_config: EnvironmentConfig) -> RestfulBookerApi:
     """Главный фасад над сервисом reqres.in: api.ping / api.booking / api.auth."""
-    return RestfulBooker(env_config)
+    return RestfulBookerApi(env_config)
 
 
 @pytest.fixture

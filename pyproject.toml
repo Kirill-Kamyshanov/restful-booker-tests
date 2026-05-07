@@ -25,7 +25,7 @@ log_cli_format = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 
 [tool.ruff]
 line-length = 120
-target-version = "py311"
+target-version = "py312"
 extend-exclude = ["venv", "allure-results", ".pytest_cache"]
 
 [tool.ruff.lint]

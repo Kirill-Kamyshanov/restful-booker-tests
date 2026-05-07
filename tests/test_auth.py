@@ -33,6 +33,6 @@ class TestAuth:
             else:
                 data = AuthRequest(**test_data["auth"][auth_case]).model_dump()
         with allure.step("Отправка запроса на авторизацию"):
-            response, validated = api.auth.login(data, is_positive=is_positive)
+            response, validated = api.auth.login(data, validate=is_positive)
         with allure.step("Проверка результата"):
             assert_auth(response, validated)

@@ -4,12 +4,13 @@
         "auth_invalid": {"username": "admin", "password": "wrong_password"},
         "auth_empty": {},
         "auth_without_name": {"password": "wrong_password"},
-        "auth_without_password": {"username": "admin"}
+        "auth_without_password": {"username": "admin"},
+        "expected_error_body": {"reason": "Bad credentials"}
     },
     "booking": {
         "valid_id": 2,
         "invalid_id": 9999,
-        "valid_patch": {"firstname": "James437", "lastname": "Brown"},
+        "valid_patch": {"firstname": "James_newman", "lastname": "Brown_newman"},
         "invalid_patch": {"firstname": 78,  "lastname": "Brown"},
         "valid_post": {
             "firstname": "Jim32",
@@ -22,14 +23,14 @@
             },
             "additionalneeds": "Breakfast"
         },
-        "invalid_post": {
-            "firstname": 111,
+        "invalid_dates_post": {
+            "firstname": "Viktor",
             "lastname": "Brow32n",
             "totalprice": 111,
             "depositpaid": false,
             "bookingdates": {
-                "checkin": "2026-01-01",
-                "checkout": "2028-01-01"
+                "checkin": 2021,
+                "checkout": "2024.03.01"
             },
             "additionalneeds": "Breakfast"
         },
