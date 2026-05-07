@@ -12,11 +12,11 @@ def assert_booking_created(response: Response, request_body: dict, response_body
         assert request_body == response_body.booking.model_dump(), "Тело ответа отличается от тела запроса"
 
 
-def assert_code_and_text(response: Response, expected_code: int, expected_text: str) -> None:
-    """Проверка статус-кода и текста ответа"""
-    with allure.step("Проверка статус-кода и текста ответа"):
-        assert_status_code(response, expected_code)
-        assert_response_text(response, expected_text)
+# def assert_code_and_text(response: Response, expected_code: int, expected_text: str) -> None:
+#     """Проверка статус-кода и текста ответа"""
+#     with allure.step("Проверка статус-кода и текста ответа"):
+#         assert_status_code(response, expected_code)
+#         assert_response_text(response, expected_text)
 
 
 def assert_not_found(response: Response) -> None:

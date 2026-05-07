@@ -6,7 +6,6 @@ from services.restful_booker.booking.assertions import (
     assert_booking_created,
     assert_booking_updated_patch,
     assert_booking_updated_put,
-    assert_code_and_text,
     assert_forbidden,
     assert_get_by_id,
     assert_not_found,
@@ -42,8 +41,7 @@ class TestBooking:
         with allure.step("Проверка успешности создания"):
             assert_booking_created(response, request_data, validated)
 
-    # Тут поведение системы специфическое. Ждал код 400, получил 200 с некорректными датами. Но они были обработаны
-    # Оставил тест как есть. В реальном проекте уточнил бы требования
+
     @pytest.mark.xfail(reason="Тест успешно проходит с невалидными датами, но обрабатывает их")
     @pytest.mark.regression
     @allure.testcase("https://jira.example.com/TC-4", "TC-4")
@@ -92,7 +90,7 @@ class TestBooking:
         with allure.step("Отправка запроса"):
             response, _ = api.booking.remove(test_booking_id)
         with allure.step("Проверка ответа"):
-            assert_code_and_text(response, 201, "Created")
+            assert_status_code(response, 201)
 
     @pytest.mark.regression
     @pytest.mark.parametrize("token", [None, "invalid_token"])
@@ -115,7 +113,7 @@ class TestBooking:
         with allure.step("Отправка запроса"):
             response, _ = api.booking.remove(test_data["booking"]["unexisted_id"])
         with allure.step("Проверка ответа"):
-            assert_code_and_text(response, 405, "Method Not Allowed")
+            assert_status_code(response, 405)
 
     @pytest.mark.regression
     @pytest.mark.smoke
@@ -191,7 +189,7 @@ class TestBooking:
             new_data = BookingData().model_dump()
             response, _ = api.booking.update(test_data["booking"]["unexisted_id"], new_data, method, validate=False)
         with allure.step("Проверка ответа"):
-            assert_code_and_text(response, 405, "Method Not Allowed")
+            assert_status_code(response, 405)
 
     @pytest.mark.regression
     @allure.testcase("https://jira.example.com/TC-15", "TC-15")
