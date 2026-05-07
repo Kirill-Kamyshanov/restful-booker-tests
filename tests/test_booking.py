@@ -110,11 +110,10 @@ class TestBooking:
     @pytest.mark.regression
     @allure.testcase("https://jira.example.com/TC-8", "TC-8")
     @allure.title("Удаление несуществующего бронирования")
-    def test_delete_unexisted_booking(self, api):
+    def test_delete_unexisted_booking(self, api, test_data):
         """Проверка удаления несуществующего бронирования"""
-        unexisted_id = 9999999
         with allure.step("Отправка запроса"):
-            response, _ = api.booking.remove(unexisted_id)
+            response, _ = api.booking.remove(test_data["booking"]["unexisted_id"])
         with allure.step("Проверка ответа"):
             assert_code_and_text(response, 405, "Method Not Allowed")
 
@@ -132,11 +131,10 @@ class TestBooking:
     @pytest.mark.regression
     @allure.testcase("https://jira.example.com/TC-10", "TC-10")
     @allure.title("Получение данных о несуществующем бронировании")
-    def test_get_booking_by_unexisted_id(self, api):
+    def test_get_booking_by_unexisted_id(self, api, test_data):
         """Попытка получить данные по несуществующему бронированию"""
-        unexisted_id = 9999999
         with allure.step("Отправка запроса"):
-            response, _ = api.booking.get_by_id(unexisted_id, validate=False)
+            response, _ = api.booking.get_by_id(test_data["booking"]["unexisted_id"], validate=False)
         with allure.step("Проверка ответа"):
             assert_not_found(response)
 
@@ -187,12 +185,11 @@ class TestBooking:
     @pytest.mark.parametrize("method", ["put", "patch"])
     @allure.testcase("https://jira.example.com/TC-14", "TC-14")
     @allure.title("Обновление несуществующего бронирования")
-    def test_update_unexisted_booking(self, api, method):
+    def test_update_unexisted_booking(self, api, method, test_data):
         """Проверка полного/частичного обновления несуществующего бронирования"""
-        unexisted_id = 9999999
         with allure.step("Отправка запроса"):
             new_data = BookingData().model_dump()
-            response, _ = api.booking.update(unexisted_id, new_data, method, validate=False)
+            response, _ = api.booking.update(test_data["booking"]["unexisted_id"], new_data, method, validate=False)
         with allure.step("Проверка ответа"):
             assert_code_and_text(response, 405, "Method Not Allowed")
 

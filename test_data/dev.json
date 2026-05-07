@@ -10,7 +10,7 @@
     "booking": {
         "invalid_token": "some_token",
         "valid_id": 2,
-        "invalid_id": 9999,
+        "unexisted_id": 9999999,
         "valid_patch": {"firstname": "James_newman", "lastname": "Brown_newman"},
         "invalid_patch": {"firstname": 78,  "lastname": "Brown"},
         "valid_post": {
