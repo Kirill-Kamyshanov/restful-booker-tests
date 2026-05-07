@@ -32,6 +32,8 @@ class EnvironmentConfig(BaseSettings):
     )
 
     booking_url: str
+    booker_username: str = "admin"
+    booker_password: str = "password123"
     authorization: str = Field(default="")
 
     def __str__(self) -> str:

@@ -40,6 +40,12 @@ def pytest_configure(config: pytest.Config) -> None:
         pytest.exit(f"Неизвестное окружение: {env_name}. Используйте --env=dev или --env=stage")
 
 
+@pytest.fixture(scope="session")
+def data_for_generate_auth_token(env: Environment) :
+    """Возвращает данные для генерации auth-токена,
+    который принимается в хедере Cookie в качестве альтернативы хедеру Authorization"""
+    config = load_environment(env)
+    return config.booker_password, config.booker_username
 
 
 
