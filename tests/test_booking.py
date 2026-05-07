@@ -31,7 +31,6 @@ class TestBooking:
 
     @pytest.mark.regression
     @pytest.mark.smoke
-    @allure.testcase("https://jira.example.com/TC-3", "TC-3")
     @allure.title("Успешное создание бронирования")
     def test_create_booking_successful(self, api):
         """Создание бронирования с валидными входными данными"""
@@ -44,7 +43,6 @@ class TestBooking:
 
     @pytest.mark.xfail(reason="Тест успешно проходит с невалидными датами, но обрабатывает их")
     @pytest.mark.regression
-    @allure.testcase("https://jira.example.com/TC-4", "TC-4")
     @allure.title("Создание бронирования с некорректными датами")
     def test_create_booking_with_invalid_dates(self, api, test_data):
         """Создание бронирования с некорректными датами"""
@@ -65,7 +63,6 @@ class TestBooking:
         "checkin",
         "checkout"
     ])
-    @allure.testcase("https://jira.example.com/TC-5", "TC-5")
     @allure.title("Создание бронирования без обязательных полей в запросе")
     def test_create_booking_without_necessary_fields(self, api, deleting_field):
         """Создание бронирования без обязательных полей в запросе"""
@@ -83,7 +80,6 @@ class TestBooking:
 
     @pytest.mark.regression
     @pytest.mark.smoke
-    @allure.testcase("https://jira.example.com/TC-6", "TC-6")
     @allure.title("Успешное удаление бронирования")
     def test_delete_booking_successful(self, api, test_booking_id):
         """Проверяет успешное удаление бронирования"""
@@ -94,7 +90,6 @@ class TestBooking:
 
     @pytest.mark.regression
     @pytest.mark.parametrize("token", [None, "invalid_token"])
-    @allure.testcase("https://jira.example.com/TC-7", "TC-7")
     @allure.title("Удаление бронирования без валидного токена")
     def test_delete_booking_with_invalid_creds(self, api, token, test_booking_id, test_data):
         """Проверяет получение ошибки при попытке удалить бронирование
@@ -106,7 +101,6 @@ class TestBooking:
             assert_forbidden(response)
 
     @pytest.mark.regression
-    @allure.testcase("https://jira.example.com/TC-8", "TC-8")
     @allure.title("Удаление несуществующего бронирования")
     def test_delete_unexisted_booking(self, api, test_data):
         """Проверка удаления несуществующего бронирования"""
@@ -117,7 +111,6 @@ class TestBooking:
 
     @pytest.mark.regression
     @pytest.mark.smoke
-    @allure.testcase("https://jira.example.com/TC-9", "TC-9")
     @allure.title("Получение данных о бронировании по id")
     def test_get_booking_by_id(self, api, test_booking_id):
         """Успешное получение данных о бронировании"""
@@ -127,7 +120,6 @@ class TestBooking:
             assert_get_by_id(response)
 
     @pytest.mark.regression
-    @allure.testcase("https://jira.example.com/TC-10", "TC-10")
     @allure.title("Получение данных о несуществующем бронировании")
     def test_get_booking_by_unexisted_id(self, api, test_data):
         """Попытка получить данные по несуществующему бронированию"""
@@ -144,7 +136,6 @@ class TestBooking:
                                         {"checkout": "2026-05-30"}
                                         ]
                              )
-    @allure.testcase("https://jira.example.com/TC-11", "TC-11")
     @allure.title("Получение данных по всем бронированиям")
     def test_get_all_bookings(self, api, params):
         """Получение данных по всем бронированиям без фильтрации / с фильтрацией по квери-параметрам"""
@@ -155,7 +146,6 @@ class TestBooking:
 
     @pytest.mark.regression
     @pytest.mark.smoke
-    @allure.testcase("https://jira.example.com/TC-12", "TC-12")
     @allure.title("Полное успешное обновление данных бронирования методом PUT")
     def test_full_update_booking(self, api, test_booking_id):
         """Проверка успешного полного обновления данных бронирования методом PUT"""
@@ -168,7 +158,6 @@ class TestBooking:
     @pytest.mark.regression
     @pytest.mark.parametrize("method", ["put", "patch"])
     @pytest.mark.parametrize("token", [None, "battletoads2"])
-    @allure.testcase("https://jira.example.com/TC-13", "TC-13")
     @allure.title("Удаление бронирования с невалидным/отсутствующим токеном авторизации")
     def test_update_booking_with_invalid_creds(self, api, test_data, token, method, test_booking_id):
         """Проверка полного/частичного обновления данных бронирования с невалидным/отсутствующим токеном"""
@@ -181,7 +170,6 @@ class TestBooking:
 
     @pytest.mark.regression
     @pytest.mark.parametrize("method", ["put", "patch"])
-    @allure.testcase("https://jira.example.com/TC-14", "TC-14")
     @allure.title("Обновление несуществующего бронирования")
     def test_update_unexisted_booking(self, api, method, test_data):
         """Проверка полного/частичного обновления несуществующего бронирования"""
@@ -192,7 +180,6 @@ class TestBooking:
             assert_status_code(response, 405)
 
     @pytest.mark.regression
-    @allure.testcase("https://jira.example.com/TC-15", "TC-15")
     @allure.title("Успешное частичное обновление бронирования методом PATCH")
     def test_patch_update_booking(self, api, test_data, test_booking_id):
         """Проверка успешного частичного обновления данных бронирования методом PATCH"""

@@ -5,7 +5,8 @@
         "auth_empty": {},
         "auth_without_name": {"password": "wrong_password"},
         "auth_without_password": {"username": "admin"},
-        "expected_error_body": {"reason": "Bad credentials"}
+        "expected_error_body": {"reason": "Bad credentials"},
+        "auth_error_response": {"reason": "Bad credentials"}
     },
     "booking": {
         "invalid_token": "some_token",

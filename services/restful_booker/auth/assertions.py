@@ -5,14 +5,21 @@ from services.restful_booker.auth.models.auth import AuthErrorResponse, AuthResp
 from utils.assertions import assert_status_code
 
 
-def assert_auth(response: Response, validated: AuthResponse | AuthErrorResponse) -> None:
-    """Проверка авторизации. Для кейсов с ошибкой проверяется конкретное тело ответа.
-    Для error-кейсов статус-код также 200"""
-    with allure.step('Проверка авторизации'):
+def assert_auth_successful(response: Response, validated: AuthResponse) -> None:
+    """Проверка успешной авторизации. validated в настоящее время не используется,
+    т.к. нет особой логики при проверке ответа. Оставил из-за наличия в ТЗ"""
+    with allure.step('Проверка успешной авторизации'):
         assert_status_code(response, 200)
 
-        if isinstance(validated, AuthErrorResponse):
-            expected_error_body = {"reason": "Bad credentials"} # dict(test_data["auth"][expected_error_body])
-            assert validated.reason == expected_error_body["reason"], (
-                f"Ожидалось reason={expected_error_body['reason']}, но получено {validated.reason}"
-        )
+
+
+def assert_auth_failed(response: Response, expected_error: AuthErrorResponse) -> None:
+    """Проверка, что авторизация не была пройдена. Статус-код для error-кейсов 200"""
+
+    with allure.step('Проверка отказа в доступе при авторизации'):
+        assert_status_code(response, 200)
+        actual_response = response.json()
+
+        assert  actual_response["reason"] == expected_error.reason, (
+            f"Ожидалось reason={expected_error.reason}, но получено {actual_response["reason"]}"
+    )
