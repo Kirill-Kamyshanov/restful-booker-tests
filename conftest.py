@@ -41,11 +41,11 @@ def pytest_configure(config: pytest.Config) -> None:
 
 
 @pytest.fixture(scope="session")
-def data_for_generate_auth_token(env: Environment) :
+def data_for_generate_auth_token(env: Environment) -> dict:
     """Возвращает данные для генерации auth-токена,
     который принимается в хедере Cookie в качестве альтернативы хедеру Authorization"""
     config = load_environment(env)
-    return config.booker_password, config.booker_username
+    return {"username": f"{config.booker_username}", "password": f"{config.booker_password}"}
 
 
 
