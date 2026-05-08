@@ -1,7 +1,7 @@
 import allure
 from requests import Response
 
-from utils.assertions import assert_status_code, assert_response_text
+from utils.assertions import assert_response_text, assert_status_code
 
 
 def assert_ping(response: Response) -> None:

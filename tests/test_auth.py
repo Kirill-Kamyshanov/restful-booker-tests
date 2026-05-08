@@ -1,14 +1,15 @@
 import allure
 import pytest
 from faker import Faker
-from services.restful_booker.auth.assertions import assert_auth_successful, assert_auth_failed
-from services.restful_booker.auth.models.auth import AuthRequest, AuthErrorResponse
+
+from services.restful_booker.auth.assertions import assert_auth_failed, assert_auth_successful
+from services.restful_booker.auth.models.auth import AuthErrorResponse, AuthRequest
 
 fake = Faker()
 
+
 @allure.feature("Authentication")
 class TestAuth:
-
 
     @pytest.mark.regression
     @pytest.mark.smoke
@@ -25,8 +26,6 @@ class TestAuth:
 
         with allure.step("Проверка результата"):
             assert_auth_successful(response, validated)
-
-
 
     @pytest.mark.regression
     @pytest.mark.smoke
@@ -45,7 +44,7 @@ class TestAuth:
             request_body = test_data["auth"][auth_case]
 
         with allure.step("Отправка запроса на авторизацию"):
-            response, validated = api.auth.login(request_body, validate=False)
+            response, _ = api.auth.login(request_body, validate=False)
 
         with allure.step("Проверка результата"):
             assert_auth_failed(response, expected_response_body)

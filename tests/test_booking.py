@@ -40,7 +40,6 @@ class TestBooking:
         with allure.step("Проверка успешности создания"):
             assert_booking_created(response, request_data, validated)
 
-
     @pytest.mark.xfail(reason="Тест успешно проходит с невалидными датами, но обрабатывает их")
     @pytest.mark.regression
     @allure.title("Создание бронирования с некорректными датами")
@@ -51,7 +50,6 @@ class TestBooking:
             response, _ = api.booking.create(request_data, validate=False)
         with allure.step("Проверка ответа"):
             assert_status_code(response, 400)
-
 
     @pytest.mark.regression
     @pytest.mark.parametrize("deleting_field", [
@@ -157,12 +155,13 @@ class TestBooking:
 
     @pytest.mark.regression
     @pytest.mark.parametrize("method", ["put", "patch"])
-    @pytest.mark.parametrize("token", [None, "battletoads2"])
+    @pytest.mark.parametrize("token", [None, "invalid_token"])
     @allure.title("Удаление бронирования с невалидным/отсутствующим токеном авторизации")
     def test_update_booking_with_invalid_creds(self, api, test_data, token, method, test_booking_id):
         """Проверка полного/частичного обновления данных бронирования с невалидным/отсутствующим токеном"""
         with allure.step("Отправка запроса"):
             new_data = BookingData().model_dump()
+            token = token if not token else test_data["booking"][token]
             response, _ = api.booking.update(test_booking_id, new_data, method, validate=False,
                                              headers={"Authorization": token})
         with allure.step("Проверка ответа"):

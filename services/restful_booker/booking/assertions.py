@@ -2,7 +2,7 @@ import allure
 from requests import Response
 
 from services.restful_booker.booking.models.booking import BookingData, CreateBookingResponse, UpdateBookingPatchRequest
-from utils.assertions import assert_response_text, assert_status_code
+from utils.assertions import assert_status_code
 
 
 def assert_booking_created(response: Response, request_body: dict, response_body: CreateBookingResponse) -> None:
@@ -10,13 +10,6 @@ def assert_booking_created(response: Response, request_body: dict, response_body
     with allure.step("Проверка создания бронирования"):
         assert_status_code(response, 200)
         assert request_body == response_body.booking.model_dump(), "Тело ответа отличается от тела запроса"
-
-
-# def assert_code_and_text(response: Response, expected_code: int, expected_text: str) -> None:
-#     """Проверка статус-кода и текста ответа"""
-#     with allure.step("Проверка статус-кода и текста ответа"):
-#         assert_status_code(response, expected_code)
-#         assert_response_text(response, expected_text)
 
 
 def assert_not_found(response: Response) -> None:
