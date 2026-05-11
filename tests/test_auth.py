@@ -2,37 +2,49 @@ import allure
 import pytest
 from faker import Faker
 
-from services.restful_booker.auth.assertions import assert_auth
-from services.restful_booker.auth.models.auth import AuthRequest
+from services.restful_booker.auth.assertions import assert_auth_failed, assert_auth_successful
+from services.restful_booker.auth.models.auth import AuthErrorResponse, AuthRequest
+
+fake = Faker()
 
 
 @allure.feature("Authentication")
 class TestAuth:
-    fake = Faker()
 
     @pytest.mark.regression
     @pytest.mark.smoke
-    @pytest.mark.parametrize("auth_case, is_positive", [
-        ("auth_valid", True),
-        ("auth_invalid", False),
-        ("auth_empty", False),
-        ("auth_without_name", False),
-        ("auth_without_password", False)
-    ])
-    @allure.testcase("https://jira.example.com/TC-1", "TC-1")
-    @allure.title("Авторизация")
-    def test_auth(self, api, test_data, auth_case, is_positive):
-        """Проверяет авторизацию с валидными/невалидными входными данными"""
+    @allure.title("Успешная авторизация")
+    def test_auth_positive(self, api, test_data):
+        """Проверяет авторизацию с валидными/невалидными входными данными.
+        Faker не использую, т.к. валидной считается всего одна пара username/password"""
+
         with allure.step("Подготовка тестовых данных"):
-            if not is_positive:
-                data = dict(test_data["auth"][auth_case])
-                fields = {"username": self.fake.name(), "password": self.fake.password()}
-                for field in data:
-                    if field in fields:
-                        data[field] = fields[field]
-            else:
-                data = AuthRequest(**test_data["auth"][auth_case]).model_dump()
+            auth_data = AuthRequest(**test_data["auth"]["auth_valid"]).model_dump()
+
         with allure.step("Отправка запроса на авторизацию"):
-            response, validated = api.auth.login(data, is_positive=is_positive)
+            response, validated = api.auth.login(auth_data)
+
         with allure.step("Проверка результата"):
-            assert_auth(response, validated)
+            assert_auth_successful(response, validated)
+
+    @pytest.mark.regression
+    @pytest.mark.smoke
+    @pytest.mark.parametrize("auth_case", [
+        "auth_invalid",
+        "auth_empty",
+        "auth_without_name",
+        "auth_without_password"
+    ])
+    @allure.title("Авторизация")
+    def test_auth_negative(self, api, test_data, auth_case):
+        """Проверяет авторизацию с невалидными входными данными"""
+
+        with allure.step("Подготовка тестовых данных"):
+            expected_response_body = AuthErrorResponse(**test_data["auth"]["auth_error_response"])
+            request_body = test_data["auth"][auth_case]
+
+        with allure.step("Отправка запроса на авторизацию"):
+            response, _ = api.auth.login(request_body, validate=False)
+
+        with allure.step("Проверка результата"):
+            assert_auth_failed(response, expected_response_body)

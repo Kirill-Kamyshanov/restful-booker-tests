@@ -86,7 +86,8 @@ class BaseAPI:
 
     @staticmethod
     def _build_session(env_config) -> Session:
-        """Создаёт requests.Session с retry-политикой для 5xx, пулом соединений и дефолтными заголовками."""
+        """Создаёт requests.Session с retry-политикой для 5xx, пулом соединений и дефолтными заголовками.
+        POST и PATCH исключены, т.к. методы считаются не идемпотентными"""
         session = Session()
         retry = Retry(
             total=DEFAULT_RETRIES,

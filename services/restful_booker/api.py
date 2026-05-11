@@ -3,8 +3,8 @@ from services.restful_booker.booking.client import BookingClient
 from services.restful_booker.ping.client import PingClient
 
 
-class RestfulBooker:
-    """Точка входа для тестов: один объект с фасадами по всем ресурсам сервиса reqres.in."""
+class RestfulBookerApi:
+    """Точка входа для тестов: один объект с фасадами по всем ресурсам сервиса restful-booker."""
 
     def __init__(self, env_config):
         """Инициализирует клиенты всех ресурсов на одном env_config (общая конфигурация и authorization)."""

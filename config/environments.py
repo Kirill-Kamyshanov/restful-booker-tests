@@ -7,7 +7,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Environment(StrEnum):
     """Перечень поддерживаемых окружений для запуска тестов"""
     DEV = 'dev'
-    PROD = 'prod'
+    STAGE = 'stage'
 
     def __str__(self):
         """Название окружения с заглавной буквы для логов/отчётов"""
@@ -16,7 +16,7 @@ class Environment(StrEnum):
 
 _URLS: dict[Environment, str] = {
     Environment.DEV: "https://restful-booker.herokuapp.com",
-    Environment.PROD: "https://restful-booker.herokuapp.com",
+    Environment.STAGE: "https://restful-booker.herokuapp.com",
 }
 
 
@@ -32,6 +32,8 @@ class EnvironmentConfig(BaseSettings):
     )
 
     booking_url: str
+    booker_username: str = "admin"
+    booker_password: str = "password123"
     authorization: str = Field(default="")
 
     def __str__(self) -> str:

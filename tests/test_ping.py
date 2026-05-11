@@ -8,7 +8,6 @@ from services.restful_booker.ping.assertions import assert_ping
 class TestPing:
     @pytest.mark.regression
     @pytest.mark.smoke
-    @allure.testcase("https://jira.example.com/TC-2", "TC-2")
     @allure.title("Проверка доступности API через PING-запрос")
     def test_ping(self, api):
         """Проверка доступности API через пинг-запрос"""
