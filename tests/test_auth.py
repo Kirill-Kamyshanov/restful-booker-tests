@@ -8,10 +8,10 @@ from services.restful_booker.auth.models.auth import AuthErrorResponse, AuthRequ
 fake = Faker()
 
 
+@pytest.mark.regression
 @allure.feature("Authentication")
 class TestAuth:
 
-    @pytest.mark.regression
     @pytest.mark.smoke
     @allure.title("Успешная авторизация")
     def test_auth_positive(self, api, test_data):
@@ -27,7 +27,6 @@ class TestAuth:
         with allure.step("Проверка результата"):
             assert_auth_successful(response, validated)
 
-    @pytest.mark.regression
     @pytest.mark.smoke
     @pytest.mark.parametrize("auth_case", [
         "auth_invalid",

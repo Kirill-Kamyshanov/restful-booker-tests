@@ -4,9 +4,9 @@ import pytest
 from services.restful_booker.ping.assertions import assert_ping
 
 
+@pytest.mark.regression
 @allure.feature("Ping")
 class TestPing:
-    @pytest.mark.regression
     @pytest.mark.smoke
     @allure.title("Проверка доступности API через PING-запрос")
     def test_ping(self, api):
