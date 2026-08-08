@@ -1,6 +1,6 @@
 [project]
 name = "restful-booker-tests"
-version = "1.0.0"
+version = "1.1.0"
 description = "API autotests for restful booker"
 requires-python = ">=3.12"
 
@@ -12,7 +12,7 @@ markers = [
     "regression: regression tests",
 ]
 addopts = [
-    "--alluredir=allure-results",
+#    "--alluredir=allure-results",
     "--strict-markers",
     "-ra",
     "-n 3",
