@@ -3,3 +3,6 @@ services:
     build: .
     volumes:
       - ./allure-results:/framework/allure-results
+    command: --env=${ENV:-dev}
+    environment:
+      AUTHORIZATION: ${AUTHORIZATION}
