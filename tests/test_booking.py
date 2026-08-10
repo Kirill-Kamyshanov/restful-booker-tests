@@ -25,11 +25,10 @@ def test_booking_id(api, cleanup) -> int:
         cleanup.append(lambda: api.booking.remove(validated.bookingid))
         return validated.bookingid
 
-
+@pytest.mark.regression
 @allure.feature("Booking")
 class TestBooking:
 
-    @pytest.mark.regression
     @pytest.mark.smoke
     @allure.title("Успешное создание бронирования")
     def test_create_booking_successful(self, api):
@@ -41,7 +40,6 @@ class TestBooking:
             assert_booking_created(response, request_data, validated)
 
     @pytest.mark.xfail(reason="Тест успешно проходит с невалидными датами, но обрабатывает их")
-    @pytest.mark.regression
     @allure.title("Создание бронирования с некорректными датами")
     def test_create_booking_with_invalid_dates(self, api, test_data):
         """Создание бронирования с некорректными датами"""
@@ -51,7 +49,6 @@ class TestBooking:
         with allure.step("Проверка ответа"):
             assert_status_code(response, 400)
 
-    @pytest.mark.regression
     @pytest.mark.parametrize("deleting_field", [
         "firstname",
         "lastname",
@@ -76,7 +73,6 @@ class TestBooking:
         with allure.step("Проверка ответа"):
             assert_status_code(response, 500)
 
-    @pytest.mark.regression
     @pytest.mark.smoke
     @allure.title("Успешное удаление бронирования")
     def test_delete_booking_successful(self, api, test_booking_id):
@@ -86,7 +82,6 @@ class TestBooking:
         with allure.step("Проверка ответа"):
             assert_status_code(response, 201)
 
-    @pytest.mark.regression
     @pytest.mark.parametrize("token", [None, "invalid_token"])
     @allure.title("Удаление бронирования без валидного токена")
     def test_delete_booking_with_invalid_creds(self, api, token, test_booking_id, test_data):
@@ -98,7 +93,6 @@ class TestBooking:
         with allure.step("Проверка ответа"):
             assert_forbidden(response)
 
-    @pytest.mark.regression
     @allure.title("Удаление несуществующего бронирования")
     def test_delete_unexisted_booking(self, api, test_data):
         """Проверка удаления несуществующего бронирования"""
@@ -107,7 +101,6 @@ class TestBooking:
         with allure.step("Проверка ответа"):
             assert_status_code(response, 405)
 
-    @pytest.mark.regression
     @pytest.mark.smoke
     @allure.title("Получение данных о бронировании по id")
     def test_get_booking_by_id(self, api, test_booking_id):
@@ -117,7 +110,6 @@ class TestBooking:
         with allure.step("Проверка ответа"):
             assert_get_by_id(response)
 
-    @pytest.mark.regression
     @allure.title("Получение данных о несуществующем бронировании")
     def test_get_booking_by_unexisted_id(self, api, test_data):
         """Попытка получить данные по несуществующему бронированию"""
@@ -126,7 +118,6 @@ class TestBooking:
         with allure.step("Проверка ответа"):
             assert_not_found(response)
 
-    @pytest.mark.regression
     @pytest.mark.parametrize("params", [None,
                                         {"firstname": fake.first_name()},
                                         {"lastname": fake.last_name()},
@@ -142,7 +133,6 @@ class TestBooking:
         with allure.step("Проверка ответа"):
             assert_status_code(response, 200)
 
-    @pytest.mark.regression
     @pytest.mark.smoke
     @allure.title("Полное успешное обновление данных бронирования методом PUT")
     def test_full_update_booking(self, api, test_booking_id):
@@ -153,7 +143,6 @@ class TestBooking:
         with allure.step("Проверка ответа"):
             assert_booking_updated_put(response, BookingData(**new_data), validated_put_response)
 
-    @pytest.mark.regression
     @pytest.mark.parametrize("method", ["put", "patch"])
     @pytest.mark.parametrize("token", [None, "invalid_token"])
     @allure.title("Удаление бронирования с невалидным/отсутствующим токеном авторизации")
@@ -167,7 +156,6 @@ class TestBooking:
         with allure.step("Проверка ответа"):
             assert_forbidden(response)
 
-    @pytest.mark.regression
     @pytest.mark.parametrize("method", ["put", "patch"])
     @allure.title("Обновление несуществующего бронирования")
     def test_update_unexisted_booking(self, api, method, test_data):
@@ -178,7 +166,6 @@ class TestBooking:
         with allure.step("Проверка ответа"):
             assert_status_code(response, 405)
 
-    @pytest.mark.regression
     @allure.title("Успешное частичное обновление бронирования методом PATCH")
     def test_patch_update_booking(self, api, test_data, test_booking_id):
         """Проверка успешного частичного обновления данных бронирования методом PATCH"""

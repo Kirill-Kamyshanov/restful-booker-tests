@@ -1,4 +1,5 @@
 allure-results
+allure-report
 .env
 __pycache__
 .idea
