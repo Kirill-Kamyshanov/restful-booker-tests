@@ -1,6 +1,5 @@
 import allure
 import pytest
-from utils.helpers import fake
 
 from services.restful_booker.booking.assertions import (
     assert_booking_created,
@@ -12,28 +11,27 @@ from services.restful_booker.booking.assertions import (
 )
 from services.restful_booker.booking.models.booking import BookingData, UpdateBookingPatchRequest
 from utils.assertions import assert_status_code
-
-
+from utils.helpers import fake
 
 
 @pytest.fixture
 def test_booking_id(api, cleanup) -> int:
     """Фикстура для создания тестового бронирования. Оставлена здесь, т.к. относится только в этому ресурсу"""
     with allure.step("Создание тестового бронирования"):
-        request_data = BookingData().model_dump(mode='json')
+        request_data = BookingData().model_dump(mode="json")
         _, validated = api.booking.create(request_data)
         cleanup.append(lambda: api.booking.remove(validated.bookingid))
         return validated.bookingid
 
+
 @pytest.mark.regression
 @allure.feature("Booking")
 class TestBooking:
-
     @pytest.mark.smoke
     @allure.title("Успешное создание бронирования")
     def test_create_booking_successful(self, api):
         with allure.step("Отправка запроса на создание"):
-            request_data = BookingData().model_dump(mode='json')
+            request_data = BookingData().model_dump(mode="json")
             response, validated = api.booking.create(request_data)
         with allure.step("Проверка успешности создания"):
             assert_booking_created(response, request_data, validated)
@@ -47,19 +45,13 @@ class TestBooking:
         with allure.step("Проверка ответа"):
             assert_status_code(response, 400)
 
-    @pytest.mark.parametrize("deleting_field", [
-        "firstname",
-        "lastname",
-        "totalprice",
-        "depositpaid",
-        "bookingdates",
-        "checkin",
-        "checkout"
-    ])
+    @pytest.mark.parametrize(
+        "deleting_field", ["firstname", "lastname", "totalprice", "depositpaid", "bookingdates", "checkin", "checkout"]
+    )
     @allure.title("Создание бронирования без обязательных полей в запросе")
     def test_create_booking_without_necessary_fields(self, api, deleting_field: str):
         with allure.step("Подготовка тестовых данных"):
-            request_data = BookingData().model_dump(mode='json')
+            request_data = BookingData().model_dump(mode="json")
 
             if deleting_field == "checkin" or deleting_field == "checkout":
                 del request_data["bookingdates"][deleting_field]
@@ -111,15 +103,18 @@ class TestBooking:
         with allure.step("Проверка ответа"):
             assert_not_found(response)
 
-    @pytest.mark.parametrize("params", [None,
-                                        {"firstname": fake.first_name()},
-                                        {"lastname": fake.last_name()},
-                                        {"checkin": "2026-05-01"},
-                                        {"checkout": "2026-05-30"}
-                                        ]
-                             )
+    @pytest.mark.parametrize(
+        "params",
+        [
+            None,
+            {"firstname": fake.first_name()},
+            {"lastname": fake.last_name()},
+            {"checkin": "2026-05-01"},
+            {"checkout": "2026-05-30"},
+        ],
+    )
     @allure.title("Получение данных по всем бронированиям")
-    def test_get_all_bookings(self, api, params: dict|None):
+    def test_get_all_bookings(self, api, params: dict | None):
         """Получение данных по всем бронированиям без фильтрации / с фильтрацией по квери-параметрам"""
         with allure.step("Отправка запроса"):
             response, _ = api.booking.list(params=params)
@@ -138,12 +133,15 @@ class TestBooking:
     @pytest.mark.parametrize("method", ["put", "patch"])
     @pytest.mark.parametrize("token", [None, "invalid_token"])
     @allure.title("Обновление данных бронирования с невалидным/отсутствующим токеном авторизации")
-    def test_update_booking_with_invalid_creds(self, api, test_data, token: str|None, method: str, test_booking_id: int):
+    def test_update_booking_with_invalid_creds(
+        self, api, test_data, token: str | None, method: str, test_booking_id: int
+    ):
         with allure.step("Отправка запроса"):
             new_data = BookingData().model_dump()
             token = token if not token else test_data["booking"][token]
-            response, _ = api.booking.update(test_booking_id, new_data, method, validate=False,
-                                             headers={"Authorization": token})
+            response, _ = api.booking.update(
+                test_booking_id, new_data, method, validate=False, headers={"Authorization": token}
+            )
         with allure.step("Проверка ответа"):
             assert_forbidden(response)
 

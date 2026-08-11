@@ -37,9 +37,14 @@ class BookingClient(BaseAPI):
         body = [GetIdBooking(**item).model_dump() for item in response.json()]
         return response, body
 
-    def update(self, booking_id: str | int, validated: BookingData | UpdateBookingPatchRequest,
-               method: Literal["put", "patch"], validate: bool = True, **kwargs) \
-            -> tuple[Response, BookingData | str]:
+    def update(
+        self,
+        booking_id: str | int,
+        validated: BookingData | UpdateBookingPatchRequest,
+        method: Literal["put", "patch"],
+        validate: bool = True,
+        **kwargs,
+    ) -> tuple[Response, BookingData | str]:
         """PUT/PATCH /booking/{id} — полное/частичное обновление бронирования, возвращение JSON/текст.
         Реализован единый метод, т.к. структура ответа в обоих случаях одинаковая"""
         if method.lower() == "put":

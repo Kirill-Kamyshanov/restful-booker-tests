@@ -5,11 +5,9 @@ from services.restful_booker.auth.assertions import assert_auth_failed, assert_a
 from services.restful_booker.auth.models.auth import AuthErrorResponse, AuthRequest
 
 
-
 @pytest.mark.regression
 @allure.feature("Authentication")
 class TestAuth:
-
     @pytest.mark.smoke
     @allure.title("Успешная авторизация")
     def test_auth_positive(self, api, test_data):
@@ -25,12 +23,7 @@ class TestAuth:
             assert_auth_successful(response, validated)
 
     @pytest.mark.smoke
-    @pytest.mark.parametrize("auth_case", [
-        "auth_invalid",
-        "auth_empty",
-        "auth_without_name",
-        "auth_without_password"
-    ])
+    @pytest.mark.parametrize("auth_case", ["auth_invalid", "auth_empty", "auth_without_name", "auth_without_password"])
     @allure.title("Авторизация с невалидными входными данными")
     def test_auth_negative(self, api, test_data, auth_case: str):
 

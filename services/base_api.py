@@ -107,22 +107,15 @@ class BaseAPI:
         return session
 
     @staticmethod
-    def _attach_request(
-            method: str,
-            url: str,
-            headers: Any,
-            body: Any,
-            params: Any,
-            request_id: str
-    ) -> None:
+    def _attach_request(method: str, url: str, headers: Any, body: Any, params: Any, request_id: str) -> None:
         """Прикрепляет к Allure данные запроса"""
         data = {
-            'method': method,
-            'url': url,
-            'headers': dict(headers),
-            'body': body,
-            'params': params,
-            'request_id': request_id
+            "method": method,
+            "url": url,
+            "headers": dict(headers),
+            "body": body,
+            "params": params,
+            "request_id": request_id,
         }
         allure.attach(
             body=json_lib.dumps(data, indent=2, ensure_ascii=False, default=str),

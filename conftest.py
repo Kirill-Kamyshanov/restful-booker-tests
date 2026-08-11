@@ -11,12 +11,7 @@ from services.restful_booker.api import RestfulBookerApi
 
 def pytest_addoption(parser: pytest.Parser) -> None:
     """Регистрация кастомной CLI опции --env для запуска тестов в разных окружениях"""
-    parser.addoption(
-        "--env",
-        action="store",
-        default="dev",
-        help="Окружение для запуска тестов (dev/stage)"
-    )
+    parser.addoption("--env", action="store", default="dev", help="Окружение для запуска тестов (dev/stage)")
 
 
 @pytest.fixture(scope="session")
@@ -46,7 +41,6 @@ def data_for_generate_auth_token(env: Environment) -> dict:
     который принимается в хедере Cookie в качестве альтернативы хедеру Authorization"""
     config = load_environment(env)
     return {"username": f"{config.booker_username}", "password": f"{config.booker_password}"}
-
 
 
 @pytest.fixture(scope="session")
