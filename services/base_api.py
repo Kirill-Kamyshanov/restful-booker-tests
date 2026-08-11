@@ -46,7 +46,7 @@ class BaseAPI:
         self._attach_request(
             method=method,
             url=url,
-            headers={**self.session.headers, **headers},
+            headers=self._hide_secret_header("Authorization", {**self.session.headers, **headers}),
             body=kwargs.get("json"),
             params=kwargs.get("params"),
             request_id=request_id,
@@ -84,6 +84,13 @@ class BaseAPI:
         )
         self._attach_response(response, elapsed_ms, request_id)
         return response
+
+    @staticmethod
+    def _hide_secret_header(secret_header: str, headers: dict) -> dict | None:
+        """Скрывает секретный хедер запроса в Allure отчёте при сохранении длины значения"""
+        if headers.get(secret_header):
+            headers[secret_header] = "*" * len(headers[secret_header])
+        return headers
 
     @staticmethod
     def _build_session(env_config: EnvironmentConfig) -> Session:
