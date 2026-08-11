@@ -1,6 +1,6 @@
 [project]
 name = "restful-booker-tests"
-version = "1.1.0"
+version = "1.2.0"
 description = "API autotests for restful booker"
 requires-python = ">=3.12"
 

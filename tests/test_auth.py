@@ -1,11 +1,9 @@
 import allure
 import pytest
-from faker import Faker
 
 from services.restful_booker.auth.assertions import assert_auth_failed, assert_auth_successful
 from services.restful_booker.auth.models.auth import AuthErrorResponse, AuthRequest
 
-fake = Faker()
 
 
 @pytest.mark.regression
@@ -15,8 +13,7 @@ class TestAuth:
     @pytest.mark.smoke
     @allure.title("Успешная авторизация")
     def test_auth_positive(self, api, test_data):
-        """Проверяет авторизацию с валидными/невалидными входными данными.
-        Faker не использую, т.к. валидной считается всего одна пара username/password"""
+        """Faker не используется, т.к. валидной считается всего одна пара username/password"""
 
         with allure.step("Подготовка тестовых данных"):
             auth_data = AuthRequest(**test_data["auth"]["auth_valid"]).model_dump()
@@ -34,9 +31,8 @@ class TestAuth:
         "auth_without_name",
         "auth_without_password"
     ])
-    @allure.title("Авторизация")
+    @allure.title("Авторизация с невалидными входными данными")
     def test_auth_negative(self, api, test_data, auth_case):
-        """Проверяет авторизацию с невалидными входными данными"""
 
         with allure.step("Подготовка тестовых данных"):
             expected_response_body = AuthErrorResponse(**test_data["auth"]["auth_error_response"])

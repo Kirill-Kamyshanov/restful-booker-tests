@@ -114,6 +114,7 @@ class BaseAPI:
             params: Any,
             request_id: str
     ) -> None:
+        """Прикрепляет к Allure данные запроса"""
         data = {
             'method': method,
             'url': url,

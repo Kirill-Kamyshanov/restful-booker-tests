@@ -1,23 +1,18 @@
 import random
 from datetime import date, timedelta
 
-from faker import Faker
+from utils.helpers import fake, random_flag
 from pydantic import BaseModel, Field
 
-fake = Faker()
 
 
-def _additional_needs():
+
+def additional_needs():
     """Вспомогательная функция для генерации тестовых данных для поля 'additionalneeds'"""
     return random.choice(["Breakfast", "Lunch", "Dinner", "Handicapp parking", "", "Gym", "Brewery", "Пожрать"])
 
 
-def _random_flag():
-    """вспомогательная функция для генерации случайного значения флагов"""
-    return random.choice([True, False])
-
-
-def _random_price():
+def random_price():
     """Вспомогательная функция для генерации случайного значения цены"""
     return random.randint(1000, 50000)
 
@@ -49,10 +44,10 @@ class BookingData(BaseModel):
     """
     firstname: str = Field(default_factory=fake.first_name)
     lastname: str = Field(default_factory=fake.last_name)
-    totalprice: int = Field(gt=0, default_factory=_random_price)
-    depositpaid: bool = Field(default_factory=_random_flag)
+    totalprice: int = Field(gt=0, default_factory=random_price)
+    depositpaid: bool = Field(default_factory=random_flag)
     bookingdates: BookingDates = Field(default_factory=BookingDates)
-    additionalneeds: str = Field(default_factory=_additional_needs)
+    additionalneeds: str = Field(default_factory=additional_needs)
 
 
 class CreateBookingResponse(BaseModel):
