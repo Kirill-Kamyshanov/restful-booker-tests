@@ -57,7 +57,7 @@ class TestBooking:
         "checkout"
     ])
     @allure.title("Создание бронирования без обязательных полей в запросе")
-    def test_create_booking_without_necessary_fields(self, api, deleting_field):
+    def test_create_booking_without_necessary_fields(self, api, deleting_field: str):
         with allure.step("Подготовка тестовых данных"):
             request_data = BookingData().model_dump(mode='json')
 
@@ -72,7 +72,7 @@ class TestBooking:
 
     @pytest.mark.smoke
     @allure.title("Успешное удаление бронирования")
-    def test_delete_booking_successful(self, api, test_booking_id):
+    def test_delete_booking_successful(self, api, test_booking_id: int):
         with allure.step("Отправка запроса"):
             response, _ = api.booking.remove(test_booking_id)
         with allure.step("Проверка ответа"):
@@ -80,7 +80,7 @@ class TestBooking:
 
     @pytest.mark.parametrize("token", [None, "invalid_token"])
     @allure.title("Удаление бронирования без валидного токена")
-    def test_delete_booking_with_invalid_creds(self, api, token, test_booking_id, test_data):
+    def test_delete_booking_with_invalid_creds(self, api, token: str, test_booking_id: int, test_data):
         """Проверяет получение ошибки при попытке удалить бронирование
         без токена авторизации / с невалидным токеном"""
         with allure.step("Отправка запроса"):
@@ -98,7 +98,7 @@ class TestBooking:
 
     @pytest.mark.smoke
     @allure.title("Получение данных о бронировании по id")
-    def test_get_booking_by_id(self, api, test_booking_id):
+    def test_get_booking_by_id(self, api, test_booking_id: int):
         with allure.step("Отправка запроса"):
             response, _ = api.booking.get_by_id(test_booking_id)
         with allure.step("Проверка ответа"):
@@ -119,7 +119,7 @@ class TestBooking:
                                         ]
                              )
     @allure.title("Получение данных по всем бронированиям")
-    def test_get_all_bookings(self, api, params):
+    def test_get_all_bookings(self, api, params: dict|None):
         """Получение данных по всем бронированиям без фильтрации / с фильтрацией по квери-параметрам"""
         with allure.step("Отправка запроса"):
             response, _ = api.booking.list(params=params)
@@ -128,7 +128,7 @@ class TestBooking:
 
     @pytest.mark.smoke
     @allure.title("Полное успешное обновление данных бронирования методом PUT")
-    def test_full_update_booking(self, api, test_booking_id):
+    def test_full_update_booking(self, api, test_booking_id: int):
         with allure.step("Отправка запроса"):
             new_data = BookingData().model_dump()
             response, validated_put_response = api.booking.update(test_booking_id, new_data, "put")
@@ -138,7 +138,7 @@ class TestBooking:
     @pytest.mark.parametrize("method", ["put", "patch"])
     @pytest.mark.parametrize("token", [None, "invalid_token"])
     @allure.title("Обновление данных бронирования с невалидным/отсутствующим токеном авторизации")
-    def test_update_booking_with_invalid_creds(self, api, test_data, token, method, test_booking_id):
+    def test_update_booking_with_invalid_creds(self, api, test_data, token: str|None, method: str, test_booking_id: int):
         with allure.step("Отправка запроса"):
             new_data = BookingData().model_dump()
             token = token if not token else test_data["booking"][token]
@@ -149,7 +149,7 @@ class TestBooking:
 
     @pytest.mark.parametrize("method", ["put", "patch"])
     @allure.title("Обновление несуществующего бронирования")
-    def test_update_unexisted_booking(self, api, method, test_data):
+    def test_update_unexisted_booking(self, api, method: str, test_data):
         with allure.step("Отправка запроса"):
             new_data = BookingData().model_dump()
             response, _ = api.booking.update(test_data["booking"]["unexisted_id"], new_data, method, validate=False)
@@ -157,7 +157,7 @@ class TestBooking:
             assert_status_code(response, 405)
 
     @allure.title("Успешное частичное обновление бронирования методом PATCH")
-    def test_patch_update_booking(self, api, test_data, test_booking_id):
+    def test_patch_update_booking(self, api, test_data, test_booking_id: int):
         with allure.step("Отправка запроса"):
             new_data = UpdateBookingPatchRequest(**test_data["booking"]["valid_patch"]).model_dump(exclude_none=True)
             response, validated_patch_response = api.booking.update(test_booking_id, new_data, "patch")

@@ -6,8 +6,7 @@ from utils.assertions import assert_status_code
 
 
 def assert_auth_successful(response: Response, validated: AuthResponse) -> None:
-    """Проверка успешной авторизации. validated в настоящее время не используется,
-    т.к. нет особой логики при проверке ответа. Оставил из-за наличия в ТЗ"""
+    """Проверка успешной авторизации. validated в настоящее время не используется"""
     with allure.step('Проверка успешной авторизации'):
         assert_status_code(response, 200)
 

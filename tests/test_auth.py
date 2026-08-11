@@ -32,7 +32,7 @@ class TestAuth:
         "auth_without_password"
     ])
     @allure.title("Авторизация с невалидными входными данными")
-    def test_auth_negative(self, api, test_data, auth_case):
+    def test_auth_negative(self, api, test_data, auth_case: str):
 
         with allure.step("Подготовка тестовых данных"):
             expected_response_body = AuthErrorResponse(**test_data["auth"]["auth_error_response"])

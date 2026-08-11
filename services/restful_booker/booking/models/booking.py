@@ -7,12 +7,12 @@ from pydantic import BaseModel, Field
 
 
 
-def additional_needs():
+def additional_needs() -> str:
     """Вспомогательная функция для генерации тестовых данных для поля 'additionalneeds'"""
     return random.choice(["Breakfast", "Lunch", "Dinner", "Handicapp parking", "", "Gym", "Brewery", "Пожрать"])
 
 
-def random_price():
+def random_price() -> int:
     """Вспомогательная функция для генерации случайного значения цены"""
     return random.randint(1000, 50000)
 

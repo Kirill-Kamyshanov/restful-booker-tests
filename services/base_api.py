@@ -10,6 +10,7 @@ from requests import RequestException, Response, Session, Timeout
 from requests.adapters import HTTPAdapter
 from urllib3 import Retry
 
+from config.environments import EnvironmentConfig
 from services.exceptions import ApiConnectionError, ApiError, ApiTimeoutError
 
 logger = logging.getLogger("api")
@@ -23,7 +24,7 @@ RETRY_STATUSES = (500, 502, 503, 504)
 class BaseAPI:
     """Базовый HTTP-клиент: единый _request с retry, structured-logging и request_id"""
 
-    def __init__(self, env_config, timeout: int = DEFAULT_TIMEOUT) -> None:
+    def __init__(self, env_config: EnvironmentConfig, timeout: int = DEFAULT_TIMEOUT) -> None:
         """Инициализирует клиент с базовым URL, таймаутом и преднастроенной requests.Session."""
         self.base_url = env_config.booking_url.rstrip("/")
         self.timeout = timeout
@@ -85,7 +86,7 @@ class BaseAPI:
         return response
 
     @staticmethod
-    def _build_session(env_config) -> Session:
+    def _build_session(env_config: EnvironmentConfig) -> Session:
         """Создаёт requests.Session с retry-политикой для 5xx, пулом соединений и дефолтными заголовками.
         POST и PATCH исключены, т.к. методы считаются не идемпотентными"""
         session = Session()
