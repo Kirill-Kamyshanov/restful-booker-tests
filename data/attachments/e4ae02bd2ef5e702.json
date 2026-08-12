@@ -1,0 +1,25 @@
+{
+  "method": "PATCH",
+  "url": "https://restful-booker.herokuapp.com/booking/9999999",
+  "headers": {
+    "User-Agent": "python-requests/2.33.1",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "X-Request-Id": "12f204f2241645a98420a62d6c388829"
+  },
+  "body": {
+    "firstname": "Christopher",
+    "lastname": "Smith",
+    "totalprice": 19844,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-09",
+      "checkout": "2026-10-13"
+    },
+    "additionalneeds": "Gym"
+  },
+  "params": null,
+  "request_id": "12f204f2241645a98420a62d6c388829"
+}

@@ -1,0 +1,15 @@
+# request_id=eedfc1a577194583897da08ee9d19215 status=200 elapsed_ms=230
+{
+  "bookingid": 436,
+  "booking": {
+    "firstname": "Robert",
+    "lastname": "Kerr",
+    "totalprice": 40669,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-05",
+      "checkout": "2026-11-06"
+    },
+    "additionalneeds": "Gym"
+  }
+}

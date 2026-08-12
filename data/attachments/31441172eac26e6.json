@@ -1,0 +1,15 @@
+# request_id=85530dcc567d43b1b640b82429084cdc status=200 elapsed_ms=257
+{
+  "bookingid": 386,
+  "booking": {
+    "firstname": "Keith",
+    "lastname": "Shaffer",
+    "totalprice": 39729,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-13",
+      "checkout": "2026-10-30"
+    },
+    "additionalneeds": "Gym"
+  }
+}

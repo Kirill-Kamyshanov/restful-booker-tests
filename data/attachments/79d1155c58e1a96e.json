@@ -1,0 +1,15 @@
+# request_id=b32cbc4eab0f4c679b9b9d12fca1efaf status=200 elapsed_ms=230
+{
+  "bookingid": 439,
+  "booking": {
+    "firstname": "David",
+    "lastname": "Bass",
+    "totalprice": 28049,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-07-21",
+      "checkout": "2026-11-04"
+    },
+    "additionalneeds": "Dinner"
+  }
+}

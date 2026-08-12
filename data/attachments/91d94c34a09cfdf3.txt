@@ -1,0 +1,1 @@
+INFO     api:base_api.py:76 api_request method=GET url=https://restful-booker.herokuapp.com/booking params={'firstname': 'Donna'} status=200 request_id=d891d91d388e4e64842018149eefa16a elapsed_ms=232
