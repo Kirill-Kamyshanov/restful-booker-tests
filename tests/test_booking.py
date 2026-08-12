@@ -21,6 +21,8 @@ def test_booking_id(api, cleanup) -> int:
         request_data = BookingData().model_dump(mode="json")
         _, validated = api.booking.create(request_data)
         cleanup.append(lambda: api.booking.remove(validated.bookingid))
+        #  убрать
+        print("ID: ", validated.bookingid)
         return validated.bookingid
 
 
@@ -68,6 +70,8 @@ class TestBooking:
         with allure.step("Отправка запроса"):
             response, _ = api.booking.remove(test_booking_id)
         with allure.step("Проверка ответа"):
+            #  убрать
+            print("Код ответа:", response.status_code)
             assert_status_code(response, 201)
 
     @pytest.mark.parametrize("token", [None, "invalid_token"])

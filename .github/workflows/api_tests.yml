@@ -1,0 +1,76 @@
+name: Restful-booker tests pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Чекаут кода
+        uses: actions/checkout@v7
+
+      - name: Установка зависимостей
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Чекаут  кода
+        uses: actions/checkout@v7
+
+      - name: Запуск тестов
+        env:
+          AUTHORIZATION: ${{ secrets.AUTHORIZATION }}
+          BOOKER_USERNAME: ${{ secrets.BOOKER_USERNAME }}
+          BOOKER_PASSWORD: ${{ secrets.BOOKER_PASSWORD }}
+        run: pytest
+
+      - name: Upload Test results
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: allure-results
+          path: allure-results
+
+      - name: generate allure-report
+        uses: simple-elf/allure-report-action@v1.15
+        if: always()
+        with:
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+
+      - name: Upload allure-report as artifact
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: allure-report
+          path: allure-report
+
+
+
+  deploy_report:
+    needs: Run_tests
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Download allure-report
+        uses: actions/download-artifact@v8
+        with:
+          name: allure-report
+          path: allure-report
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.RESTFUL_BOOKER_TOKEN }}
+          publish_dir: ./allure-report
+          publish_branch: gh-pages
+          keep_files: false
+          destination_dir: .
