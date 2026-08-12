@@ -1,0 +1,12 @@
+# request_id=d5fb8a03d0ef4fdbb01b151d49a76357 status=200 elapsed_ms=64
+{
+  "firstname": "Lauren",
+  "lastname": "Doyle",
+  "totalprice": 28926,
+  "depositpaid": false,
+  "bookingdates": {
+    "checkin": "2026-07-15",
+    "checkout": "2026-11-14"
+  },
+  "additionalneeds": "Breakfast"
+}

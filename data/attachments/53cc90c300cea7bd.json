@@ -1,0 +1,15 @@
+# request_id=9ada659e79864c31a745303bc5a69c94 status=200 elapsed_ms=231
+{
+  "bookingid": 3058,
+  "booking": {
+    "firstname": "Teresa",
+    "lastname": "Baker",
+    "totalprice": 46605,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-22",
+      "checkout": "2026-11-13"
+    },
+    "additionalneeds": "Breakfast"
+  }
+}

@@ -1,0 +1,15 @@
+# request_id=b2fdc76d13e2461e880bafb8218c2133 status=200 elapsed_ms=235
+{
+  "bookingid": 3038,
+  "booking": {
+    "firstname": "Jasmine",
+    "lastname": "Martin",
+    "totalprice": 35265,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-22",
+      "checkout": "2026-11-03"
+    },
+    "additionalneeds": "Breakfast"
+  }
+}

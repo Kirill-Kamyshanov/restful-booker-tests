@@ -1,0 +1,15 @@
+# request_id=e053e139662449b08acb21d666da914d status=200 elapsed_ms=258
+{
+  "bookingid": 3050,
+  "booking": {
+    "firstname": "Daniel",
+    "lastname": "Torres",
+    "totalprice": 43583,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-21",
+      "checkout": "2026-11-10"
+    },
+    "additionalneeds": "Brewery"
+  }
+}
