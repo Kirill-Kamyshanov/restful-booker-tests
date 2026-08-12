@@ -1,0 +1,15 @@
+# request_id=b6cf43fd2a244d0aba9a8b291b5f8a5a status=200 elapsed_ms=124
+{
+  "bookingid": 1866,
+  "booking": {
+    "firstname": "Andrea",
+    "lastname": "Chapman",
+    "totalprice": 12913,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-20",
+      "checkout": "2026-10-07"
+    },
+    "additionalneeds": "Brewery"
+  }
+}

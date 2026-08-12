@@ -1,0 +1,15 @@
+# request_id=60dc2f5906e24271afb063ec57830ca9 status=200 elapsed_ms=189
+{
+  "bookingid": 1852,
+  "booking": {
+    "firstname": "Samantha",
+    "lastname": "Ross",
+    "totalprice": 10178,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-09-06",
+      "checkout": "2026-09-13"
+    },
+    "additionalneeds": "Lunch"
+  }
+}

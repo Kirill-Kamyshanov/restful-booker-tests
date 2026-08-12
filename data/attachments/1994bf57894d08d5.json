@@ -1,0 +1,15 @@
+# request_id=10c83fce55d24971bcddb37cf2eebcc6 status=200 elapsed_ms=131
+{
+  "bookingid": 1868,
+  "booking": {
+    "firstname": "Joseph",
+    "lastname": "Burgess",
+    "totalprice": 3488,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-28",
+      "checkout": "2026-10-01"
+    },
+    "additionalneeds": "Handicapp parking"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "method": "POST",
+  "url": "https://restful-booker.herokuapp.com/booking",
+  "headers": {
+    "User-Agent": "python-requests/2.33.1",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "X-Request-Id": "5b5b1e5a3d0f45cca078fe0bf42eddd3"
+  },
+  "body": {
+    "firstname": "Roger",
+    "lastname": "Kramer",
+    "totalprice": 32205,
+    "depositpaid": true,
+    "additionalneeds": "Lunch"
+  },
+  "params": null,
+  "request_id": "5b5b1e5a3d0f45cca078fe0bf42eddd3"
+}

@@ -1,0 +1,15 @@
+# request_id=534560274911491181061faa8e3a98e6 status=200 elapsed_ms=134
+{
+  "bookingid": 1885,
+  "booking": {
+    "firstname": "Derek",
+    "lastname": "Schultz",
+    "totalprice": 9347,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-18",
+      "checkout": "2026-09-21"
+    },
+    "additionalneeds": "Brewery"
+  }
+}

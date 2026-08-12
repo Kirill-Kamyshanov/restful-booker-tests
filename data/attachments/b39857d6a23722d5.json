@@ -1,0 +1,15 @@
+# request_id=508d3e70fe3d4a0aa703b5f8bf167db8 status=200 elapsed_ms=127
+{
+  "bookingid": 1933,
+  "booking": {
+    "firstname": "Kathy",
+    "lastname": "Mcdonald",
+    "totalprice": 38273,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-02",
+      "checkout": "2026-10-13"
+    },
+    "additionalneeds": ""
+  }
+}
