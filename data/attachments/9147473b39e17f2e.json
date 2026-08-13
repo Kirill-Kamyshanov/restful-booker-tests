@@ -1,0 +1,12 @@
+# request_id=4681eb8e3dbb47c1a43589e18f2ae0fa status=200 elapsed_ms=5
+{
+  "firstname": "Julia",
+  "lastname": "Bradley",
+  "totalprice": 30989,
+  "depositpaid": true,
+  "bookingdates": {
+    "checkin": "2026-09-06",
+    "checkout": "2026-11-03"
+  },
+  "additionalneeds": "Пожрать"
+}

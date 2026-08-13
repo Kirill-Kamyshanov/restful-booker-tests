@@ -1,0 +1,4 @@
+# request_id=a7bda1e6b7d54606b35235760733f84f status=200 elapsed_ms=128
+{
+  "reason": "Bad credentials"
+}

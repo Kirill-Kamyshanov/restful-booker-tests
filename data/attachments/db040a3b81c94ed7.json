@@ -1,0 +1,12 @@
+# request_id=bfd656c409d542b99133b4941f4cacd7 status=200 elapsed_ms=5
+{
+  "firstname": "Karen",
+  "lastname": "Meza",
+  "totalprice": 19803,
+  "depositpaid": true,
+  "bookingdates": {
+    "checkin": "2026-09-03",
+    "checkout": "2026-09-25"
+  },
+  "additionalneeds": "Lunch"
+}

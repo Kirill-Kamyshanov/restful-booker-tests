@@ -1,0 +1,15 @@
+# request_id=5a6411929348473b9e6f9c4274679746 status=200 elapsed_ms=44
+{
+  "bookingid": 328,
+  "booking": {
+    "firstname": "Robert",
+    "lastname": "Barnes",
+    "totalprice": 10891,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-29",
+      "checkout": "2026-10-18"
+    },
+    "additionalneeds": "Пожрать"
+  }
+}

@@ -1,0 +1,15 @@
+# request_id=cff44825e61849a2af27bc71fb6ba454 status=200 elapsed_ms=48
+{
+  "bookingid": 323,
+  "booking": {
+    "firstname": "Linda",
+    "lastname": "Cook",
+    "totalprice": 8295,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-13",
+      "checkout": "2026-10-22"
+    },
+    "additionalneeds": "Dinner"
+  }
+}
