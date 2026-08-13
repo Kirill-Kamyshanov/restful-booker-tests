@@ -1,0 +1,18 @@
+{
+  "method": "GET",
+  "url": "https://restful-booker.herokuapp.com/booking",
+  "headers": {
+    "User-Agent": "python-requests/2.33.1",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "Authorization": "******************************",
+    "X-Request-Id": "a289cdbe5b8846939b616b2f9995bbae"
+  },
+  "body": null,
+  "params": {
+    "checkin": "2026-05-01"
+  },
+  "request_id": "a289cdbe5b8846939b616b2f9995bbae"
+}

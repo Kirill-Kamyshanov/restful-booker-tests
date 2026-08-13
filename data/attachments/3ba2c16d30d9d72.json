@@ -1,0 +1,15 @@
+# request_id=488e7dc9b54e410b954a4ada46913338 status=200 elapsed_ms=105
+{
+  "bookingid": 2129,
+  "booking": {
+    "firstname": "Jennifer",
+    "lastname": "Gallagher",
+    "totalprice": 34663,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-28",
+      "checkout": "2026-10-27"
+    },
+    "additionalneeds": "Dinner"
+  }
+}
