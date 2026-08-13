@@ -1,0 +1,25 @@
+{
+  "method": "PUT",
+  "url": "https://restful-booker.herokuapp.com/booking/3290",
+  "headers": {
+    "User-Agent": "python-requests/2.33.1",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "X-Request-Id": "3f26e6654f274aa9b58afda32c211767"
+  },
+  "body": {
+    "firstname": "Anthony",
+    "lastname": "Gibbs",
+    "totalprice": 14492,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-25",
+      "checkout": "2026-10-17"
+    },
+    "additionalneeds": "Brewery"
+  },
+  "params": null,
+  "request_id": "3f26e6654f274aa9b58afda32c211767"
+}

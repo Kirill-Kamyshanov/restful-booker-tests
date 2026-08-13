@@ -1,0 +1,15 @@
+# request_id=425fc958db8b43d2b9b3324459dec699 status=200 elapsed_ms=265
+{
+  "bookingid": 3331,
+  "booking": {
+    "firstname": "Donna",
+    "lastname": "Lewis",
+    "totalprice": 3751,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-09-10",
+      "checkout": "2026-11-12"
+    },
+    "additionalneeds": ""
+  }
+}

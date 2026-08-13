@@ -1,0 +1,16 @@
+{
+  "method": "DELETE",
+  "url": "https://restful-booker.herokuapp.com/booking/3292",
+  "headers": {
+    "User-Agent": "python-requests/2.33.1",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "Authorization": null,
+    "X-Request-Id": "107ac4442aaa40c59b17aab9f8cb7541"
+  },
+  "body": null,
+  "params": null,
+  "request_id": "107ac4442aaa40c59b17aab9f8cb7541"
+}

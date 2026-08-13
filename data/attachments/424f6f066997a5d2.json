@@ -1,0 +1,25 @@
+{
+  "method": "POST",
+  "url": "https://restful-booker.herokuapp.com/booking",
+  "headers": {
+    "User-Agent": "python-requests/2.33.1",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "X-Request-Id": "fbe1d65e93944777a168678e7caff93c"
+  },
+  "body": {
+    "firstname": "Kelly",
+    "lastname": "Wise",
+    "totalprice": 14793,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-07-31",
+      "checkout": "2026-11-09"
+    },
+    "additionalneeds": "Handicapp parking"
+  },
+  "params": null,
+  "request_id": "fbe1d65e93944777a168678e7caff93c"
+}

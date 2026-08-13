@@ -1,0 +1,15 @@
+# request_id=e434cc7465a2467c9c4281a2dd00e666 status=200 elapsed_ms=171
+{
+  "bookingid": 3298,
+  "booking": {
+    "firstname": "Elizabeth",
+    "lastname": "Hunt",
+    "totalprice": 32192,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-09-08",
+      "checkout": "2026-09-30"
+    },
+    "additionalneeds": "Brewery"
+  }
+}

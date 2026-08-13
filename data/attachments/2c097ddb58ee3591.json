@@ -1,0 +1,15 @@
+# request_id=c905b9dd67344e78b76d90a9b1447831 status=200 elapsed_ms=159
+{
+  "bookingid": 3344,
+  "booking": {
+    "firstname": "Brittany",
+    "lastname": "King",
+    "totalprice": 23752,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-23",
+      "checkout": "2026-10-07"
+    },
+    "additionalneeds": "Lunch"
+  }
+}

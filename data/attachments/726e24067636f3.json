@@ -1,0 +1,24 @@
+{
+  "method": "POST",
+  "url": "https://restful-booker.herokuapp.com/booking",
+  "headers": {
+    "User-Agent": "python-requests/2.33.1",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "X-Request-Id": "2b7b43c306f645e4acbda1551b41c1e3"
+  },
+  "body": {
+    "lastname": "Hoover",
+    "totalprice": 32698,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-07",
+      "checkout": "2026-10-28"
+    },
+    "additionalneeds": "Handicapp parking"
+  },
+  "params": null,
+  "request_id": "2b7b43c306f645e4acbda1551b41c1e3"
+}

@@ -1,0 +1,25 @@
+{
+  "method": "POST",
+  "url": "https://restful-booker.herokuapp.com/booking",
+  "headers": {
+    "User-Agent": "python-requests/2.33.1",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "X-Request-Id": "d4ef4140b33c4e638cc5ea7285ccab24"
+  },
+  "body": {
+    "firstname": "Robert",
+    "lastname": "Romero",
+    "totalprice": 31330,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-20",
+      "checkout": "2026-10-01"
+    },
+    "additionalneeds": "Пожрать"
+  },
+  "params": null,
+  "request_id": "d4ef4140b33c4e638cc5ea7285ccab24"
+}

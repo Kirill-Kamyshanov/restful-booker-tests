@@ -1,0 +1,15 @@
+# request_id=f2c4bcdc4aae4655bdfab2fd0c3c733b status=200 elapsed_ms=137
+{
+  "bookingid": 3262,
+  "booking": {
+    "firstname": "Viktor",
+    "lastname": "Brow32n",
+    "totalprice": 111,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "1970-01-01",
+      "checkout": "2024-03-01"
+    },
+    "additionalneeds": "Breakfast"
+  }
+}

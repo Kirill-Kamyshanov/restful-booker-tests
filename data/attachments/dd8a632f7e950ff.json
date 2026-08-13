@@ -1,0 +1,15 @@
+# request_id=3cd4ff68c81d48a694dc71baec536cd6 status=200 elapsed_ms=192
+{
+  "bookingid": 3308,
+  "booking": {
+    "firstname": "Peggy",
+    "lastname": "Ryan",
+    "totalprice": 27555,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-30",
+      "checkout": "2026-10-08"
+    },
+    "additionalneeds": "Пожрать"
+  }
+}
