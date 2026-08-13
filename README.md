@@ -55,7 +55,7 @@ docker-compose run tests -m smoke - запуск тестов с определ�
 После запуска тестов любыми указанными выше способами результаты будут доступны вне контейнера в папке /allure-results
 ```
 allure serve     - просмотр на локальном сервере
-allure generate -c allure-results -o allure-report allure-results - генерация файлов с отчётами
+allure generate -c allure-results -o allure-report  - генерация файлов с отчётами
 ```
 
 ## Запуск тестов в CI/CD Pipeline
