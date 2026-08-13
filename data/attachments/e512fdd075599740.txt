@@ -1,0 +1,8 @@
+
+Окружение: Dev
+- Booking API: https://restful-booker.herokuapp.com
+
+ID:  2190
+Код ответа: 403
+ID:  2203
+Код ответа: 403
