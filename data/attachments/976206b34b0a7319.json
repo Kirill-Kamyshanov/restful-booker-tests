@@ -1,0 +1,15 @@
+# request_id=8aa0f58f76b0467081961a370f284bb8 status=200 elapsed_ms=106
+{
+  "bookingid": 1374,
+  "booking": {
+    "firstname": "Mary",
+    "lastname": "Mccullough",
+    "totalprice": 47185,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-02",
+      "checkout": "2026-10-16"
+    },
+    "additionalneeds": "Пожрать"
+  }
+}

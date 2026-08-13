@@ -1,0 +1,12 @@
+# request_id=7a50da09d8294da19d77fa8315fbd76c status=200 elapsed_ms=22
+{
+  "firstname": "Danny",
+  "lastname": "Romero",
+  "totalprice": 1373,
+  "depositpaid": false,
+  "bookingdates": {
+    "checkin": "2026-07-22",
+    "checkout": "2026-09-16"
+  },
+  "additionalneeds": "Dinner"
+}

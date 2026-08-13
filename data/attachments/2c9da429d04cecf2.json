@@ -1,0 +1,15 @@
+# request_id=ce4c7814b45941299be123763071574a status=200 elapsed_ms=126
+{
+  "bookingid": 1379,
+  "booking": {
+    "firstname": "Brian",
+    "lastname": "Miller",
+    "totalprice": 41609,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-17",
+      "checkout": "2026-09-27"
+    },
+    "additionalneeds": ""
+  }
+}

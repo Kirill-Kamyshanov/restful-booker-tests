@@ -1,0 +1,15 @@
+# request_id=27683108d1c0463d9a9c32238c289891 status=200 elapsed_ms=121
+{
+  "bookingid": 1367,
+  "booking": {
+    "firstname": "Brandon",
+    "lastname": "Ritter",
+    "totalprice": 49254,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-24",
+      "checkout": "2026-11-04"
+    },
+    "additionalneeds": "Brewery"
+  }
+}
