@@ -1,0 +1,12 @@
+# request_id=3d71e7ee69f5464b9fd1407156c59951 status=200 elapsed_ms=57
+{
+  "firstname": "Alexander",
+  "lastname": "Grimes",
+  "totalprice": 3776,
+  "depositpaid": false,
+  "bookingdates": {
+    "checkin": "2026-07-29",
+    "checkout": "2026-10-26"
+  },
+  "additionalneeds": "Dinner"
+}

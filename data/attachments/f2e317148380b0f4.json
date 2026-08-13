@@ -1,0 +1,22 @@
+{
+  "method": "POST",
+  "url": "https://restful-booker.herokuapp.com/booking",
+  "headers": {
+    "User-Agent": "python-requests/2.33.1",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "Authorization": "******************************",
+    "X-Request-Id": "14a2328609664da5aef1232d552bb974"
+  },
+  "body": {
+    "firstname": "Lisa",
+    "lastname": "Lawson",
+    "totalprice": 19898,
+    "depositpaid": true,
+    "additionalneeds": "Brewery"
+  },
+  "params": null,
+  "request_id": "14a2328609664da5aef1232d552bb974"
+}

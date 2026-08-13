@@ -1,6 +1,0 @@
-
-Окружение: Dev
-- Booking API: https://restful-booker.herokuapp.com
-
-ID:  4023
-Код ответа: 201

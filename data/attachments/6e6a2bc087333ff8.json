@@ -1,0 +1,15 @@
+# request_id=42e4dcbfe7a241de8a294cee50dbc856 status=200 elapsed_ms=243
+{
+  "bookingid": 4767,
+  "booking": {
+    "firstname": "Anthony",
+    "lastname": "Padilla",
+    "totalprice": 42129,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-08",
+      "checkout": "2026-10-10"
+    },
+    "additionalneeds": ""
+  }
+}
