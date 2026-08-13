@@ -7,19 +7,20 @@
     "Accept": "application/json",
     "Connection": "keep-alive",
     "Content-Type": "application/json",
-    "X-Request-Id": "ce52466c3d504e08a96c1e52f32119d1"
+    "Authorization": "******************************",
+    "X-Request-Id": "a014488fc952470098f5f6caab15db81"
   },
   "body": {
-    "firstname": "William",
-    "lastname": "Roberts",
-    "totalprice": 49671,
+    "firstname": "Daniel",
+    "lastname": "Walter",
+    "totalprice": 27717,
     "depositpaid": false,
     "bookingdates": {
-      "checkin": "2026-08-12",
-      "checkout": "2026-11-19"
+      "checkin": "2026-08-25",
+      "checkout": "2026-09-30"
     },
     "additionalneeds": "Handicapp parking"
   },
   "params": null,
-  "request_id": "ce52466c3d504e08a96c1e52f32119d1"
+  "request_id": "a014488fc952470098f5f6caab15db81"
 }
