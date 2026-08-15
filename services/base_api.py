@@ -10,6 +10,7 @@ from requests import RequestException, Response, Session, Timeout
 from requests.adapters import HTTPAdapter
 from urllib3 import Retry
 
+from config.environments import EnvironmentConfig
 from services.exceptions import ApiConnectionError, ApiError, ApiTimeoutError
 
 logger = logging.getLogger("api")
@@ -23,7 +24,7 @@ RETRY_STATUSES = (500, 502, 503, 504)
 class BaseAPI:
     """Базовый HTTP-клиент: единый _request с retry, structured-logging и request_id"""
 
-    def __init__(self, env_config, timeout: int = DEFAULT_TIMEOUT) -> None:
+    def __init__(self, env_config: EnvironmentConfig, timeout: int = DEFAULT_TIMEOUT) -> None:
         """Инициализирует клиент с базовым URL, таймаутом и преднастроенной requests.Session."""
         self.base_url = env_config.booking_url.rstrip("/")
         self.timeout = timeout
@@ -45,7 +46,7 @@ class BaseAPI:
         self._attach_request(
             method=method,
             url=url,
-            headers={**self.session.headers, **headers},
+            headers=self._hide_secret_header("Authorization", {**self.session.headers, **headers}),
             body=kwargs.get("json"),
             params=kwargs.get("params"),
             request_id=request_id,
@@ -85,7 +86,14 @@ class BaseAPI:
         return response
 
     @staticmethod
-    def _build_session(env_config) -> Session:
+    def _hide_secret_header(secret_header: str, headers: dict) -> dict | None:
+        """Скрывает секретный хедер запроса в Allure отчёте при сохранении длины значения"""
+        if headers.get(secret_header):
+            headers[secret_header] = "*" * len(headers[secret_header])
+        return headers
+
+    @staticmethod
+    def _build_session(env_config: EnvironmentConfig) -> Session:
         """Создаёт requests.Session с retry-политикой для 5xx, пулом соединений и дефолтными заголовками.
         POST и PATCH исключены, т.к. методы считаются не идемпотентными"""
         session = Session()
@@ -106,21 +114,15 @@ class BaseAPI:
         return session
 
     @staticmethod
-    def _attach_request(
-            method: str,
-            url: str,
-            headers: Any,
-            body: Any,
-            params: Any,
-            request_id: str
-    ) -> None:
+    def _attach_request(method: str, url: str, headers: Any, body: Any, params: Any, request_id: str) -> None:
+        """Прикрепляет к Allure данные запроса"""
         data = {
-            'method': method,
-            'url': url,
-            'headers': dict(headers),
-            'body': body,
-            'params': params,
-            'request_id': request_id
+            "method": method,
+            "url": url,
+            "headers": dict(headers),
+            "body": body,
+            "params": params,
+            "request_id": request_id,
         }
         allure.attach(
             body=json_lib.dumps(data, indent=2, ensure_ascii=False, default=str),

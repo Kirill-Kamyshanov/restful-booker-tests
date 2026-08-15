@@ -11,12 +11,7 @@ from services.restful_booker.api import RestfulBookerApi
 
 def pytest_addoption(parser: pytest.Parser) -> None:
     """Регистрация кастомной CLI опции --env для запуска тестов в разных окружениях"""
-    parser.addoption(
-        "--env",
-        action="store",
-        default="dev",
-        help="Окружение для запуска тестов (dev/stage)"
-    )
+    parser.addoption("--env", action="store", default="dev", help="Окружение для запуска тестов (dev/stage)")
 
 
 @pytest.fixture(scope="session")
@@ -41,28 +36,11 @@ def pytest_configure(config: pytest.Config) -> None:
 
 
 @pytest.fixture(scope="session")
-def data_for_generate_auth_token(env: Environment) -> dict:
-    """Возвращает данные для генерации auth-токена,
-    который принимается в хедере Cookie в качестве альтернативы хедеру Authorization"""
-    config = load_environment(env)
-    return {"username": f"{config.booker_username}", "password": f"{config.booker_password}"}
-
-
-
-@pytest.fixture(scope="session")
 def env_config(env: Environment) -> EnvironmentConfig:
     """Загружает конфиг текущего окружения (URL + секреты)."""
     config = load_environment(env)
     print(f"\nОкружение: {env}\n{config}\n")
     return config
-
-
-@pytest.fixture(scope="session")
-def test_data(env: Environment) -> dict:
-    """Загружает тестовые данные окружения из test_data/{env}.json"""
-    path = Path(__file__).parent / "test_data" / f"{env.value}.json"
-    with path.open(encoding="utf-8") as f:
-        return json.load(f)
 
 
 @pytest.fixture
@@ -89,3 +67,22 @@ def cleanup() -> Generator[list[Callable[[], None]], None, None]:
             errors.append(exc)
     if errors:
         warnings.warn(f"Cleanup errors: {errors}", stacklevel=2)
+
+
+# ------------------------------------------------------------------
+#               Генерация/загрузка тестовых данных
+# ------------------------------------------------------------------
+@pytest.fixture(scope="session")
+def data_for_generate_auth_token(env: Environment) -> dict:
+    """Возвращает данные для генерации auth-токена,
+    который принимается в хедере Cookie в качестве альтернативы хедеру Authorization"""
+    config = load_environment(env)
+    return {"username": f"{config.booker_username}", "password": f"{config.booker_password}"}
+
+
+@pytest.fixture(scope="session")
+def test_data(env: Environment) -> dict:
+    """Загружает тестовые данные окружения из test_data/{env}.json"""
+    path = Path(__file__).parent / "test_data" / f"{env.value}.json"
+    with path.open(encoding="utf-8") as f:
+        return json.load(f)

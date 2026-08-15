@@ -6,3 +6,5 @@ services:
     command: --env=${ENV:-dev}
     environment:
       AUTHORIZATION: ${AUTHORIZATION}
+      BOOKER_USERNAME: ${BOOKER_USERNAME}
+      BOOKER_PASSWORD: ${BOOKER_PASSWORD}

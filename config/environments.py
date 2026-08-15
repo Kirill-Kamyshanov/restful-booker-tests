@@ -6,8 +6,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Environment(StrEnum):
     """Перечень поддерживаемых окружений для запуска тестов"""
-    DEV = 'dev'
-    STAGE = 'stage'
+
+    DEV = "dev"
+    STAGE = "stage"
 
     def __str__(self):
         """Название окружения с заглавной буквы для логов/отчётов"""
@@ -32,8 +33,8 @@ class EnvironmentConfig(BaseSettings):
     )
 
     booking_url: str
-    booker_username: str = "admin"
-    booker_password: str = "password123"
+    booker_username: str
+    booker_password: str
     authorization: str = Field(default="")
 
     def __str__(self) -> str:

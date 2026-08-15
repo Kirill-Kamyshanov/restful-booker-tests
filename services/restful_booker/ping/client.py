@@ -8,5 +8,5 @@ class PingClient(BaseAPI):
 
     def ping(self) -> tuple[Response, str]:
         """GET /ping - проверка работоспособности API"""
-        response = self.get('/ping')
+        response = self.get("/ping")
         return response, response.text
