@@ -3,6 +3,13 @@
 Официальная документация с инструкцией для генерации токена:
 https://restful-booker.herokuapp.com/apidoc/index.html
 
+### Технологии
+- Python
+- Pytest
+- Allure
+- Docker
+
+
 ## Локальный запуск тестов в IDE
 
 #### 1. Установка зависимостей
