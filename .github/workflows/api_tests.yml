@@ -14,10 +14,9 @@ jobs:
 
       - name: Установка зависимостей
         run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt
+          uv sync
 
-      - name: Чекаут  кода
+      - name: Чекаут кода
         uses: actions/checkout@v7
 
       - name: Запуск тестов
