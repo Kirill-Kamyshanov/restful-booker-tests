@@ -1,0 +1,15 @@
+# request_id=f089c5f99685464d82b7f3a748797d80 status=200 elapsed_ms=144
+{
+  "bookingid": 4432,
+  "booking": {
+    "firstname": "Ivan",
+    "lastname": "Garcia",
+    "totalprice": 2075,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-09-13",
+      "checkout": "2026-11-23"
+    },
+    "additionalneeds": "Breakfast"
+  }
+}

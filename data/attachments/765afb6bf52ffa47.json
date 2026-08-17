@@ -1,0 +1,15 @@
+# request_id=b133b93083af4b939935c2b07a588ff6 status=200 elapsed_ms=132
+{
+  "bookingid": 4418,
+  "booking": {
+    "firstname": "Cynthia",
+    "lastname": "Pham",
+    "totalprice": 29264,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-09",
+      "checkout": "2026-10-10"
+    },
+    "additionalneeds": "Brewery"
+  }
+}

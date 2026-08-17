@@ -1,0 +1,12 @@
+# request_id=65a8839949b944f3af49fd30517a5018 status=200 elapsed_ms=20
+{
+  "firstname": "David",
+  "lastname": "Sellers",
+  "totalprice": 24451,
+  "depositpaid": true,
+  "bookingdates": {
+    "checkin": "2026-09-05",
+    "checkout": "2026-11-12"
+  },
+  "additionalneeds": "Breakfast"
+}

@@ -1,0 +1,12 @@
+# request_id=b0ed56f03d624e4892c94ca87fbf4cda status=200 elapsed_ms=20
+{
+  "firstname": "Rhonda",
+  "lastname": "Alexander",
+  "totalprice": 40773,
+  "depositpaid": true,
+  "bookingdates": {
+    "checkin": "2026-08-07",
+    "checkout": "2026-10-31"
+  },
+  "additionalneeds": ""
+}
