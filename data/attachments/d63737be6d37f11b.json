@@ -1,0 +1,26 @@
+{
+  "method": "PATCH",
+  "url": "https://restful-booker.herokuapp.com/booking/5002",
+  "headers": {
+    "User-Agent": "python-requests/2.33.1",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "Authorization": "**********",
+    "X-Request-Id": "87ad29ac3fe74582a3499ebfbec829ce"
+  },
+  "body": {
+    "firstname": "Desiree",
+    "lastname": "Velez",
+    "totalprice": 25641,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-04",
+      "checkout": "2026-11-03"
+    },
+    "additionalneeds": "Dinner"
+  },
+  "params": null,
+  "request_id": "87ad29ac3fe74582a3499ebfbec829ce"
+}

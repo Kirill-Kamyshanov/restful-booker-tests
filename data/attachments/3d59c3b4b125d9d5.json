@@ -1,0 +1,15 @@
+# request_id=45fcd2601952412ba74c043098629686 status=200 elapsed_ms=272
+{
+  "bookingid": 4971,
+  "booking": {
+    "firstname": "Carmen",
+    "lastname": "Barton",
+    "totalprice": 45006,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-22",
+      "checkout": "2026-10-01"
+    },
+    "additionalneeds": "Gym"
+  }
+}

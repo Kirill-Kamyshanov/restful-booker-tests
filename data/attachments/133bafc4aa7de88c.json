@@ -1,0 +1,19 @@
+{
+  "method": "POST",
+  "url": "https://restful-booker.herokuapp.com/auth",
+  "headers": {
+    "User-Agent": "python-requests/2.33.1",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "Authorization": "******************************",
+    "X-Request-Id": "9f46d21ba2884b1b8e8ae66ddf6a3b12"
+  },
+  "body": {
+    "username": "admin",
+    "password": "password123"
+  },
+  "params": null,
+  "request_id": "9f46d21ba2884b1b8e8ae66ddf6a3b12"
+}

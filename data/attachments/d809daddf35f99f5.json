@@ -1,0 +1,15 @@
+# request_id=76bf8cbf6f9e411ebfbe1c9ce1add4b5 status=200 elapsed_ms=247
+{
+  "bookingid": 4984,
+  "booking": {
+    "firstname": "John",
+    "lastname": "Sims",
+    "totalprice": 19302,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-15",
+      "checkout": "2026-10-22"
+    },
+    "additionalneeds": "Lunch"
+  }
+}
