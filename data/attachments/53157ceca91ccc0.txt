@@ -1,4 +1,0 @@
-
-Окружение: Dev
-- Booking API: https://restful-booker.herokuapp.com
-
