@@ -1,0 +1,26 @@
+{
+  "method": "PUT",
+  "url": "https://restful-booker.herokuapp.com/booking/2528",
+  "headers": {
+    "User-Agent": "python-requests/2.33.1",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "Authorization": null,
+    "X-Request-Id": "e27a8c2fb31049fb98530d12cb692cb5"
+  },
+  "body": {
+    "firstname": "Cynthia",
+    "lastname": "Li",
+    "totalprice": 12372,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-29",
+      "checkout": "2026-10-06"
+    },
+    "additionalneeds": "Пожрать"
+  },
+  "params": null,
+  "request_id": "e27a8c2fb31049fb98530d12cb692cb5"
+}

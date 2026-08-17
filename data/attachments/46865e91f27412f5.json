@@ -1,0 +1,15 @@
+# request_id=e2c0dbcdc3c8457d9ce392cf608af7f1 status=200 elapsed_ms=53
+{
+  "bookingid": 2523,
+  "booking": {
+    "firstname": "Valerie",
+    "lastname": "Flores",
+    "totalprice": 21825,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-25",
+      "checkout": "2026-10-06"
+    },
+    "additionalneeds": "Dinner"
+  }
+}

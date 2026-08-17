@@ -1,3 +1,0 @@
-INFO     api:base_api.py:76 api_request method=POST url=https://restful-booker.herokuapp.com/booking params={} status=200 request_id=05e01938e9084b4e8c8ddd1c6ba0100b elapsed_ms=116
-INFO     api:base_api.py:76 api_request method=PUT url=https://restful-booker.herokuapp.com/booking/4430 params={} status=403 request_id=7c73ff5324e744f9a8944a1c7aca3664 elapsed_ms=19
-INFO     api:base_api.py:76 api_request method=DELETE url=https://restful-booker.herokuapp.com/booking/4430 params={} status=201 request_id=f0d0a51b35624c0295231d3dcb212733 elapsed_ms=19

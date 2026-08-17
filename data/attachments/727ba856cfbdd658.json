@@ -1,0 +1,15 @@
+# request_id=047840c23a9e48da89efa74180e1717f status=200 elapsed_ms=51
+{
+  "bookingid": 2528,
+  "booking": {
+    "firstname": "Wayne",
+    "lastname": "Lopez",
+    "totalprice": 16976,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-19",
+      "checkout": "2026-10-13"
+    },
+    "additionalneeds": ""
+  }
+}

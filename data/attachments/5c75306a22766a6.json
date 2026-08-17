@@ -1,0 +1,15 @@
+# request_id=b412b62befb84397a52b1d74c55510a2 status=200 elapsed_ms=55
+{
+  "bookingid": 2524,
+  "booking": {
+    "firstname": "Kimberly",
+    "lastname": "Ward",
+    "totalprice": 26652,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-09-14",
+      "checkout": "2026-11-07"
+    },
+    "additionalneeds": "Brewery"
+  }
+}

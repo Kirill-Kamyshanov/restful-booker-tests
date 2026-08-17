@@ -1,0 +1,12 @@
+# request_id=9c0b3648aa2e4a879f4a89a1a0692fd9 status=200 elapsed_ms=9
+{
+  "firstname": "George",
+  "lastname": "Gallagher",
+  "totalprice": 44823,
+  "depositpaid": false,
+  "bookingdates": {
+    "checkin": "2026-08-07",
+    "checkout": "2026-10-11"
+  },
+  "additionalneeds": ""
+}

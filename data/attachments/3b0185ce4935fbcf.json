@@ -1,0 +1,15 @@
+# request_id=9571dd1c9b324498923706e7d206a6b8 status=200 elapsed_ms=82
+{
+  "bookingid": 2527,
+  "booking": {
+    "firstname": "Laura",
+    "lastname": "Quinn",
+    "totalprice": 10748,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-07-29",
+      "checkout": "2026-11-16"
+    },
+    "additionalneeds": "Пожрать"
+  }
+}
