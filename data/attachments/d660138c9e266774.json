@@ -1,0 +1,15 @@
+# request_id=3ba1399c5a7e48889fa48a87539e3821 status=200 elapsed_ms=39
+{
+  "bookingid": 3226,
+  "booking": {
+    "firstname": "Ryan",
+    "lastname": "Green",
+    "totalprice": 3302,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-29",
+      "checkout": "2026-10-23"
+    },
+    "additionalneeds": "Пожрать"
+  }
+}

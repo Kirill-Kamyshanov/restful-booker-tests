@@ -1,0 +1,15 @@
+# request_id=1bd8e961f5ba4f6d86ea62e05021f0a2 status=200 elapsed_ms=41
+{
+  "bookingid": 3223,
+  "booking": {
+    "firstname": "Kelsey",
+    "lastname": "Jordan",
+    "totalprice": 43549,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-07-28",
+      "checkout": "2026-11-17"
+    },
+    "additionalneeds": "Handicapp parking"
+  }
+}

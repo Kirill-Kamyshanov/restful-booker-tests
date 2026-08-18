@@ -1,0 +1,15 @@
+# request_id=03e98976e77c49ccadc8b625c18f6e97 status=200 elapsed_ms=34
+{
+  "bookingid": 3222,
+  "booking": {
+    "firstname": "Robert",
+    "lastname": "Chen",
+    "totalprice": 19802,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-08-04",
+      "checkout": "2026-11-14"
+    },
+    "additionalneeds": "Dinner"
+  }
+}

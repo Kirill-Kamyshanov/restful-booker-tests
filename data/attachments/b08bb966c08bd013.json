@@ -1,0 +1,15 @@
+# request_id=751b5f571959484b88ac34b81abd9dd5 status=200 elapsed_ms=45
+{
+  "bookingid": 3218,
+  "booking": {
+    "firstname": "Kyle",
+    "lastname": "Tanner",
+    "totalprice": 16382,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2026-09-05",
+      "checkout": "2026-10-29"
+    },
+    "additionalneeds": "Lunch"
+  }
+}

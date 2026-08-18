@@ -1,0 +1,19 @@
+{
+  "method": "PATCH",
+  "url": "https://restful-booker.herokuapp.com/booking/3228",
+  "headers": {
+    "User-Agent": "python-requests/2.33.1",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "Authorization": "******************************",
+    "X-Request-Id": "a78155d13ce84b02a8cf43cbc060f3b7"
+  },
+  "body": {
+    "firstname": "James_newman",
+    "lastname": "Brown_newman"
+  },
+  "params": null,
+  "request_id": "a78155d13ce84b02a8cf43cbc060f3b7"
+}

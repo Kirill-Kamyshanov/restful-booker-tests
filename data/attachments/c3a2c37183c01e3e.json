@@ -1,0 +1,15 @@
+# request_id=4e09191692584ff68412d043f01c04a3 status=200 elapsed_ms=48
+{
+  "bookingid": 3213,
+  "booking": {
+    "firstname": "Derrick",
+    "lastname": "Olson",
+    "totalprice": 35591,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-26",
+      "checkout": "2026-10-26"
+    },
+    "additionalneeds": "Gym"
+  }
+}

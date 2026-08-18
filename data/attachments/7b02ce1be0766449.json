@@ -1,0 +1,12 @@
+# request_id=a78155d13ce84b02a8cf43cbc060f3b7 status=200 elapsed_ms=6
+{
+  "firstname": "James_newman",
+  "lastname": "Brown_newman",
+  "totalprice": 49941,
+  "depositpaid": true,
+  "bookingdates": {
+    "checkin": "2026-07-23",
+    "checkout": "2026-10-12"
+  },
+  "additionalneeds": "Пожрать"
+}

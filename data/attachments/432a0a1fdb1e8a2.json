@@ -1,0 +1,15 @@
+# request_id=f340ad90dfba4bbbadd85bfb45ed5756 status=200 elapsed_ms=33
+{
+  "bookingid": 3225,
+  "booking": {
+    "firstname": "Melanie",
+    "lastname": "Riley",
+    "totalprice": 26151,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-23",
+      "checkout": "2026-09-29"
+    },
+    "additionalneeds": "Lunch"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "method": "PATCH",
+  "url": "https://restful-booker.herokuapp.com/booking/3223",
+  "headers": {
+    "User-Agent": "python-requests/2.33.1",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "application/json",
+    "Connection": "keep-alive",
+    "Content-Type": "application/json",
+    "Authorization": null,
+    "X-Request-Id": "ba98b51963f04332b99e605076975bea"
+  },
+  "body": {
+    "firstname": "Thomas",
+    "lastname": "Valencia",
+    "totalprice": 26163,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2026-08-14",
+      "checkout": "2026-09-27"
+    },
+    "additionalneeds": "Handicapp parking"
+  },
+  "params": null,
+  "request_id": "ba98b51963f04332b99e605076975bea"
+}
