@@ -1,6 +1,9 @@
 name: Restful-booker tests pipeline
 
 on:
+  push:
+    branches-ignore:
+      - gh-pages
   pull_request:
     branches:
       - main
